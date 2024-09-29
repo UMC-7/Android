@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    // SecondActivity로 이동
+    // SecondActivity로 감정 값 전달
     private fun moveToSecondActivity(emotion: String) {
         val intent = Intent(this, SecondActivity::class.java)
         intent.putExtra("emotion", emotion)
