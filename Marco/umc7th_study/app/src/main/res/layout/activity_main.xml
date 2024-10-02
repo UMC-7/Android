@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg">
+
+    <TextView
+        android:id="@+id/main_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘 하루는 어땠나요?"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:id="@+id/main_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="감정우표를 선택해주세요"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_tv"
+        android:layout_marginTop="11dp"/>
+
+    <TextView
+        android:id="@+id/main_tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택한 감정우표를 기반으로 맞춤형 질문이 배달됩니다"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_tv2"
+        android:layout_marginTop="25dp"/>
+
+    <ImageView
+        android:id="@+id/emo1_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emo1"
+        app:layout_constraintTop_toBottomOf="@id/main_tv3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"/>
+    <TextView
+        android:id="@+id/emo1_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="더없이 행복한 하루였어요"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/emo1_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"/>
+
+    <ImageView
+        android:id="@+id/emo2_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emo2"
+        app:layout_constraintTop_toBottomOf="@id/emo1_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/emo2_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="들뜨고 흥분돼요"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/emo2_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"/>
+
+    <ImageView
+        android:id="@+id/emo3_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emo3"
+        app:layout_constraintTop_toBottomOf="@id/emo2_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/emo3_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="평범한 하루였어요"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/emo3_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"/>
+
+    <ImageView
+        android:id="@+id/emo4_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emo4"
+        app:layout_constraintTop_toBottomOf="@id/emo3_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/emo4_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생각이 많아지고 불안해요"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/emo4_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"/>
+
+    <ImageView
+        android:id="@+id/emo5_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emo5"
+        app:layout_constraintTop_toBottomOf="@id/emo4_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/emo5_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="부글부글 화가나요"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/emo5_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
