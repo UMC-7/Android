@@ -15,9 +15,71 @@ class NextActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 뒤로가기 아이콘 클릭시 NextActivity 종료 (생명주기)
-        binding.backIv.setOnClickListener {
+        binding.nextBackIv.setOnClickListener {
             finish()
         }
+
+        // 바텀 네비게이션 뷰 작동
+        initBottomNavigation(intent.getIntExtra("id", 1))
     }
 
+
+    private fun initBottomNavigation(id : Int) {
+        when (id) {
+            1 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.next_container_fl, HomeFragment())
+                    .commitAllowingStateLoss()
+                binding.nextBottomNav.selectedItemId = R.id.fragment_home
+            }
+            2 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.next_container_fl, SearchFragment())
+                    .commitAllowingStateLoss()
+                binding.nextBottomNav.selectedItemId = R.id.fragment_search
+            }
+            3 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.next_container_fl, CalenderFragment())
+                    .commitAllowingStateLoss()
+                binding.nextBottomNav.selectedItemId = R.id.fragment_calender
+            }
+            4 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.next_container_fl, ProfileFragment())
+                    .commitAllowingStateLoss()
+                binding.nextBottomNav.selectedItemId = R.id.fragment_profile
+            }
+        }
+
+        binding.nextBottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.fragment_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.next_container_fl, HomeFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.fragment_search -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.next_container_fl, SearchFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.fragment_calender -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.next_container_fl, CalenderFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.fragment_profile -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.next_container_fl, ProfileFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                else -> false
+            }
+        }
+    }
 }
