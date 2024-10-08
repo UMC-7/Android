@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 프래그먼트가 오른쪽에서 왼쪽으로 사라질 때 사용 -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="0%"
+    android:toXDelta="-100%"
+    android:duration="300"/>
