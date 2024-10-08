@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tiniping_iv"
+        android:layout_width="180dp"
+        android:layout_height="240dp"
+        android:src="@drawable/icon_tiniping"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="90dp"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/black"/>
+
+    <!--  가운데 이미지 중심으로 원형으로 배치  -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_bassguitar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="8"
+        app:layout_constraintCircleRadius="170dp"/>
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_elecguitar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="70"
+        app:layout_constraintCircleRadius="150dp"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_synthesizer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="130"
+        app:layout_constraintCircleRadius="170dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_drum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="180"
+        app:layout_constraintCircleRadius="170dp"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/icon_mic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="230"
+        app:layout_constraintCircleRadius="165dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_classicguitar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiniping_iv"
+        app:layout_constraintCircle="@+id/tiniping_iv"
+        app:layout_constraintCircleAngle="305"
+        app:layout_constraintCircleRadius="140dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
