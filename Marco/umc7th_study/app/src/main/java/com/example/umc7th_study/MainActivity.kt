@@ -20,26 +20,31 @@ class MainActivity : AppCompatActivity() {
         // 각 이미지 클릭시 NextActivity로 전환 (Intent 이용)
         binding.emo1Iv.setOnClickListener {
             val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("id", 1)
             startActivity(intent)
         }
 
         binding.emo2Iv.setOnClickListener {
             val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("id", 2)
             startActivity(intent)
         }
 
         binding.emo3Iv.setOnClickListener {
             val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("id", 3)
             startActivity(intent)
         }
 
         binding.emo4Iv.setOnClickListener {
             val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("id", 4)
             startActivity(intent)
         }
 
         binding.emo5Iv.setOnClickListener {
             val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("id", 4)
             startActivity(intent)
         }
     }
