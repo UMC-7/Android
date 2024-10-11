@@ -1,10 +1,8 @@
 package com.example.clone_coding
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.clone_coding.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +15,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBottomNavigation()
+
+        binding.mainPlayerCl.setOnClickListener {
+
+            val intent = Intent(this,SongActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initBottomNavigation(){
@@ -26,4 +30,7 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
 
     }
+
+
+
 }
