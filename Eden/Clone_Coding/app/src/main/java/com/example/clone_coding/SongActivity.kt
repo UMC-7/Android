@@ -29,6 +29,13 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(false)
         }
 
+        if(intent.hasExtra("title") && intent.hasExtra("singer")){
+            binding.songMusicTitleTv.text = intent.getStringExtra("title")
+            binding.songSingerNameTv.text = intent.getStringExtra("singer")
+
+        }
+
+
     }
 
     private fun setPlayerStatus (isPlaying : Boolean){
