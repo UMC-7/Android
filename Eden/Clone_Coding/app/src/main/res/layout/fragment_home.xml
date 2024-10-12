@@ -259,15 +259,17 @@
                     android:layout_marginStart="20dp"
                     android:orientation="vertical">
                     <ImageView
+                        android:id="@+id/home_album_img_iv2"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/img_album_exp"
                         />
+<!--                  글자가 틀 넘어가지 않도록 제한-->
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="제목"
+                        android:text="Butter (feat. Megan Thee Stallion)"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
                         android:textColor="@color/black"/>
@@ -276,7 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="가수명"
+                        android:text="방탄소년단"
                         android:textSize="13sp"
                         android:textColor="#a8a8a8"/>
 

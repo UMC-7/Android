@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.clone_coding.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class AlbumFragment : Fragment() {
+class AlbumFragment() : Fragment() {
     lateinit var binding: FragmentAlbumBinding
 
     private var information = arrayListOf("수록곡", "상세정보", "영상")
@@ -22,6 +21,24 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
+        // Bundle에서 데이터 가져오기
+        val albumTitle = arguments?.getString("albumTitle")
+        val singer = arguments?.getString("singer")
+        val info = arguments?.getString("info")
+        val img = arguments?.getInt("img")
+
+        // UI에 데이터 설정
+        binding.albumMusicTitleTv.text = albumTitle
+        binding.albumSingerNameTv.text = singer
+        binding.albumMusicTitleInfoTv.text = info
+
+        // ImageView에 이미지 리소스를 설정
+        img?.let {
+            if (it != 0) {
+                binding.albumAlbumIv.setImageResource(it)
+            }
+        }
+
         //뒤로가기 버튼 액션
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -29,10 +46,6 @@ class AlbumFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
-        //viewPager2 사용으로 SongFragment로 이동에 따른 삭제
-//        binding.songLalacLayout.setOnClickListener{
-//            Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()
-//        }
 
         val albumAdapter = AlbumVPAdapter(this)
         binding.albumContentVp.adapter = albumAdapter
