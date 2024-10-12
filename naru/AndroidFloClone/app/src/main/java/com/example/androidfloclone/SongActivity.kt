@@ -1,5 +1,6 @@
 package com.example.androidfloclone
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -16,10 +17,19 @@ class SongActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.songDownIb.setOnClickListener {
+            // 제목을 텍스트뷰에서 가져옴
+            val songTitle = binding.songMusicTitleTv.text.toString()
+
+            // 결과를 담을 intent 생성
+            val intent = Intent().apply {
+                putExtra("SONG_TITLE", songTitle) // 제목을 intent에 추가
+            }
+            // 결과를 RESULT_OK와 설정하고 액티비티 종료
+            setResult(RESULT_OK, intent)
             finish()
         }
-
         binding.songMiniplayerIv.setOnClickListener {
             setPlayerStatus(false)
         }
@@ -30,6 +40,8 @@ class SongActivity : AppCompatActivity() {
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
         }
+
+
     }
 
     fun setPlayerStatus(isPlaying : Boolean) {
