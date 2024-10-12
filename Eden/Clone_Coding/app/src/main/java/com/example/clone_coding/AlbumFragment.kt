@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.clone_coding.databinding.FragmentAlbumBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class AlbumFragment : Fragment() {
     lateinit var binding: FragmentAlbumBinding
+
+    private var information = arrayListOf("수록곡", "상세정보", "영상")
 
 
     override fun onCreateView(
@@ -26,10 +29,17 @@ class AlbumFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
-        binding.songLalacLayout.setOnClickListener{
-            Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()
-        }
+        //viewPager2 사용으로 SongFragment로 이동에 따른 삭제
+//        binding.songLalacLayout.setOnClickListener{
+//            Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()
+//        }
 
+        val albumAdapter = AlbumVPAdapter(this)
+        binding.albumContentVp.adapter = albumAdapter
+
+        TabLayoutMediator(binding.albumContentTb, binding.albumContentVp){
+            tab, position -> tab.text = information[position]
+        }.attach()
 
 
         return binding.root
