@@ -1,5 +1,7 @@
 package com.example.clone_coding
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +20,11 @@ class SongActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.songDownIb.setOnClickListener {
+            val title = binding.songMusicTitleTv.text.toString()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("title", title)
+            setResult(Activity.RESULT_OK, intent)
+
             finish()
         }
 
