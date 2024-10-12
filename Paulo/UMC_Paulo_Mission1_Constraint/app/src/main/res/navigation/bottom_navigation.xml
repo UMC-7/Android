@@ -6,16 +6,16 @@
     app:startDestination="@id/item_home_img">
     <fragment
         android:id="@+id/item_search_img"
-        android:name="com.example.myapplication.Search"
+        android:name="com.example.myapplication.SearchFragment"
         tools:layout="@layout/fragment_search"/>
 
     <fragment
         android:id="@+id/item_home_img"
-        android:name="com.example.myapplication.Home"
+        android:name="com.example.myapplication.HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/item_setting_img"
-        android:name="com.example.myapplication.Setting"
+        android:name="com.example.myapplication.SettingFragment"
         tools:layout="@layout/fragment_setting"/>
 
 </navigation>
