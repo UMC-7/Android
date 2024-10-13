@@ -261,6 +261,7 @@
         app:layout_constraintEnd_toStartOf="@+id/song_player_layout"
         app:layout_constraintTop_toTopOf="@+id/song_player_layout" />
 
+
     <ImageView
         android:id="@+id/song_random_iv"
         android:layout_width="60dp"
