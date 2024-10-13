@@ -20,7 +20,19 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeAlbumImgIv1.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,AlbumFragment()).commitAllowingStateLoss()
+            val singer = binding.homeAlbumSingerTv.text.toString()
+            val albumName = binding.homeAlbumNameTv.text.toString()
+
+            val albumFragment = AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    putString("singer", singer)
+                    putString("albumName", albumName)
+                }
+            }
+
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,albumFragment)
+                .commitAllowingStateLoss()
         }
 
         val bannerAdapter = BannerVPAdapter(this)
