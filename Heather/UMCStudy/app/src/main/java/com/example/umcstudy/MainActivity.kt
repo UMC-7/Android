@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    // 현재 위치(index)를 추적하는 변수, 애니메이션 방향 설정에 필요함
+    private var currentFragment: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,22 +60,30 @@ class MainActivity : AppCompatActivity() {
 
         // BottomNavigationView 이벤트 추가
         binding.bottomNavigation.setOnItemSelectedListener { item ->
+            val targetFragment = when (item.itemId) {
+                R.id.nav_home -> 0
+                R.id.nav_board -> 1
+                R.id.nav_calendar -> 2
+                R.id.nav_user -> 3
+                else -> 0
+            }
             when (item.itemId) {
                 R.id.nav_home -> { // 홈 선택 시 FragmentContainerView 숨기기
                     binding.mainContainer.visibility = View.VISIBLE
                     binding.fragmentContainer.visibility = View.GONE
+                    currentFragment = targetFragment
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_board -> {
-                    loadFragment(BoardFragment())
+                    loadFragment(BoardFragment(), targetFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_calendar -> {
-                    loadFragment(CalendarFragment())
+                    loadFragment(CalendarFragment(), targetFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_user -> {
-                    loadFragment(UserFragment())
+                    loadFragment(UserFragment(), targetFragment)
                     return@setOnItemSelectedListener true
                 }
             }
@@ -89,23 +100,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Fragment 로드
-    private fun loadFragment(fragment: Fragment) {
-        // Fragment 전환될 때 메인 화면 숨기기(감정 우표 선택)
+    private fun loadFragment(fragment: Fragment, targetFragment: Int) {
+        // Fragment 전환될 때 메인 화면(감정 우표 선택 창) 숨기기
         binding.mainContainer.visibility = View.GONE
         // FragmentContainerView 보이게 하기
         binding.fragmentContainer.visibility = View.VISIBLE
 
-        // 애니메이션 추가
-        supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
+        val transaction = supportFragmentManager.beginTransaction()
+
+        // 현재 프래그먼트 위치에 따른 애니메이션 설정
+        // Home -> Board -> Calendar -> User
+        if (currentFragment < targetFragment) {
+            // 왼쪽에서 오른쪽으로 이동
+            transaction.setCustomAnimations(
                 R.anim.slide_in_right,
-                R.anim.slide_out_left,
+                R.anim.slide_out_left
+            )
+        } else if (currentFragment > targetFragment) {
+            // 오른쪽에서 왼쪽으로 이동
+            transaction.setCustomAnimations(
                 R.anim.slide_in_left,
                 R.anim.slide_out_right
             )
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null) // 뒤로가기
+        }
+
+        transaction.replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
+
+        currentFragment = targetFragment // 현재 위치 업데이트
     }
 
 }
