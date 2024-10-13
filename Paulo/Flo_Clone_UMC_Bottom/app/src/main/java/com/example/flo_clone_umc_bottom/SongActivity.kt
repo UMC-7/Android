@@ -1,5 +1,7 @@
 package com.example.flo_clone_umc_bottom
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
@@ -12,9 +14,7 @@ class SongActivity : AppCompatActivity() {
           super.onCreate(savedInstanceState)
           binding = ActivitySongBinding.inflate(layoutInflater)
           setContentView(binding.root)
-          binding.songDownIb.setOnClickListener{
-               finish()
-          }
+
           binding.songMiniplayerIv.setOnClickListener {
                setPlayerStatus(false)
           }
@@ -25,6 +25,13 @@ class SongActivity : AppCompatActivity() {
           if(intent.hasExtra("title") && intent.hasExtra("singer")){
                binding.songMusicTitleTv.text = intent.getStringExtra("title")
                binding.songSingerNameTv.text = intent.getStringExtra("singer")
+          }
+
+          binding.songDownIb.setOnClickListener{
+               val resultIntent = Intent()
+               resultIntent.putExtra("ALBUM_TITLE", binding.songMusicTitleTv.text)
+               setResult(Activity.RESULT_OK, resultIntent)
+               finish()
           }
      }
 

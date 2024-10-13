@@ -1,9 +1,13 @@
 package com.example.flo_clone_umc_bottom
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.flo_clone_umc_bottom.HomeFragment
 import com.example.flo_clone_umc_bottom.LockerFragment
 import com.example.flo_clone_umc_bottom.LookFragment
@@ -13,6 +17,15 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    val getResultText = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val albumTitle = result.data?.getStringExtra("ALBUM_TITLE")
+            Toast.makeText(this,albumTitle, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +39,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
-            startActivity(intent)
+            getResultText.launch(intent)
         }
+
+
+
+
         initBottomNavigation()
 
 
