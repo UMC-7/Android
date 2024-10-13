@@ -296,7 +296,9 @@
                         android:layout_height="150dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/img_album_exp1"
+
                         />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -323,6 +325,7 @@
                     android:layout_marginStart="20dp"
                     android:orientation="vertical">
                     <ImageView
+                        android:id="@+id/home_album_img_iv3"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:scaleType="fitCenter"
@@ -331,7 +334,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="제목"
+                        android:text="Butter"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
                         android:textColor="@color/black"/>
@@ -340,7 +343,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="가수명"
+                        android:text="BTS"
                         android:textSize="13sp"
                         android:textColor="#a8a8a8"/>
 

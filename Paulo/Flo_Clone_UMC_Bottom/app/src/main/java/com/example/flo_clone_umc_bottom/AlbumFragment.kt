@@ -22,8 +22,23 @@ class AlbumFragment : Fragment() {
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
         }
 
+        val albumTitle = arguments?.getString("ALBUM_TITLE")
+        val albumArtist = arguments?.getString("ALBUM_ARTIST")
+        val albumImageResId = arguments?.getInt("ALBUM_IMAGE")
+
+        binding.albumMusicTitleTv.text = albumTitle ?: "Unknown Album"
+        binding.albumSingerNameTv.text = albumArtist ?: "Unknown Artist"
+        albumImageResId?.let { binding.albumAlbumIv.setImageResource(it) }
+
+        val formattedTitle = String.format("%s 5th Album '%s'", albumArtist,albumTitle)
+        binding.albumMusicTitleTv.text = formattedTitle
+
+
+        binding.songMusicTitle01Tv.text = albumTitle ?: "Unknown Album"
+        binding.songSingerName01Tv.text = albumArtist ?: "Unknown Artist"
+
         binding.songLalacLayout.setOnClickListener {
-            Toast.makeText(activity,"LILAC",Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,albumTitle,Toast.LENGTH_SHORT).show()
         }
         return binding.root
 
