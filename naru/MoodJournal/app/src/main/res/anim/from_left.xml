@@ -1,0 +1,7 @@
+<translate xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 프래그먼트가 왼쪽에서 오른쪽으로 나타날 때 사용 -->
+    <translate
+        android:fromXDelta="-100%"
+        android:toXDelta="0%"
+        android:duration="300" />
+</translate>
