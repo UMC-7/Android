@@ -61,6 +61,7 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(false)
         }
 
+        //미니플레이어에 있는 데이터 반영
         if(intent.hasExtra("title") && intent.hasExtra("singer")){
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")

@@ -33,12 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
 
+        //플레이어 띄울 때 데이터 전달
         binding.mainPlayerCl.setOnClickListener {
-
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
-//            startActivity(intent)
             getResultText.launch(intent)
         }
 
