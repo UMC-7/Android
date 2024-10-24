@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.clone_coding.databinding.FragmentSongBinding
 
 class SongFragment : Fragment() {
@@ -22,9 +23,28 @@ class SongFragment : Fragment() {
             Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()
         }
 
+        //MIX 버튼 상태 변경
+        binding.songMixoffTg.setOnClickListener {
+            changeMIXStatus(true)
+        }
+        binding.songMixonTg.setOnClickListener {
+            changeMIXStatus(false)
+        }
+
         return binding.root
 
 
+    }
+
+    private fun changeMIXStatus(isMIX : Boolean){
+        if(isMIX){
+            binding.songMixoffTg.visibility = View.GONE
+            binding.songMixonTg.visibility = View.VISIBLE
+        }
+        else{
+            binding.songMixonTg.visibility = View.GONE
+            binding.songMixoffTg.visibility = View.VISIBLE
+        }
     }
 
 }
