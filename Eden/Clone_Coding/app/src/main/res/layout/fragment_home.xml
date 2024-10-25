@@ -21,6 +21,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <ImageView
+            android:id="@+id/home_pannel_btn_nugu_iv"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/btn_main_mike"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@id/home_pannel_btn_ticket_iv"
+            android:layout_marginEnd="15dp"/>
+
+        <ImageView
+            android:id="@+id/home_pannel_btn_ticket_iv"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/btn_main_ticket"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@id/home_pannel_btn_setting_iv"
+            android:layout_marginEnd="15dp"/>
+
+        <ImageView
+            android:id="@+id/home_pannel_btn_setting_iv"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/btn_main_setting"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"/>
+
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/home_pannel_background_indi"
             android:layout_width="wrap_content"
