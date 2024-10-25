@@ -1,17 +1,23 @@
 package com.example.clone_coding
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.example.clone_coding.databinding.FragmentHomeBinding
+import java.util.Timer
+import kotlin.concurrent.scheduleAtFixedRate
 
 
 class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
+    private val timer = Timer()
+    private val handler = Handler(Looper.getMainLooper())
 
-    lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +25,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        //ViewPager2 어댑터 설정
+        val panelAdapter = PannerVPAdapter(this)
+        binding.homePannelBackgroundVp.adapter = panelAdapter
+        //어댑터와 인디케이터 연결
+        binding.homePannelBackgroundIndi.setViewPager(binding.homePannelBackgroundVp)
+        //자동 전환
+        startAutoSlide(panelAdapter)
+
+        
 
         //특정 정보를 담을 AlbumFragment을 생성
         var lilacFragment = AlbumFragment()
@@ -60,5 +76,23 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         return binding.root
+    }
+
+    private fun startAutoSlide(adapter : PannerVPAdapter){
+        //3초마다 전환
+        timer.scheduleAtFixedRate(3000, 3000){
+            handler.post{
+                val nextItem = binding.homePannelBackgroundVp.currentItem + 1
+                if(nextItem < adapter.itemCount ){
+                    //다음 페이지 있을 경우
+                    binding.homePannelBackgroundVp.currentItem = nextItem
+                }
+                else{
+                    //마지막 페이지일 경우 첫 페이지로
+                    binding.homePannelBackgroundVp.currentItem = 0
+                }
+            }
+        }
+
     }
 }
