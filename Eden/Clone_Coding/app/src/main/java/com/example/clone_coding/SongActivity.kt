@@ -2,6 +2,7 @@ package com.example.clone_coding
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
@@ -15,7 +16,8 @@ import com.example.clone_coding.databinding.ActivitySongBinding
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private var isColorChanged = false
+    private var isRepeatColorChanged = false
+    private var isRandomColorChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,22 +35,25 @@ class SongActivity : AppCompatActivity() {
 
         //반복재생 설정
         binding.songRepeatIv.setOnClickListener {
-            if (isColorChanged) {
+            if (isRepeatColorChanged) {
                 binding.songRepeatIv.setColorFilter(ContextCompat.getColor(this, R.color.flo), PorterDuff.Mode.SRC_ATOP)
             } else {
                 binding.songRepeatIv.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryGrey), PorterDuff.Mode.SRC_ATOP)
             }
-            isColorChanged = !isColorChanged // 상태 반전
+            isRepeatColorChanged = !isRepeatColorChanged // 상태 반전
         }
 
         //랜덤재생 설정
         binding.songRandomIv.setOnClickListener {
-            if (isColorChanged) {
-                binding.songRandomIv.setColorFilter(ContextCompat.getColor(this, R.color.flo), PorterDuff.Mode.SRC_ATOP)
+            if (isRandomColorChanged) {
+//                binding.songRandomIv.setColorFilter(ContextCompat.getColor(this, R.color.flo), PorterDuff.Mode.SRC_ATOP)  //ColorFilter 방식
+                binding.songRandomIv.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@SongActivity, R.color.flo)) //Tint 방식
             } else {
-                binding.songRandomIv.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryGrey), PorterDuff.Mode.SRC_ATOP)
+//                binding.songRandomIv.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryGrey), PorterDuff.Mode.SRC_ATOP)
+                binding.songRandomIv.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@SongActivity, R.color.colorPrimaryGrey))
+
             }
-            isColorChanged = !isColorChanged // 상태 반전
+            isRandomColorChanged = !isRandomColorChanged // 상태 반전
         }
 
 
