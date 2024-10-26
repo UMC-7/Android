@@ -34,6 +34,15 @@ class SongFragment : Fragment() {
             binding.songSingerName10Tv
         )
 
+        binding.songMixoffTg.setOnClickListener {
+            binding.songMixoffTg.visibility = View.GONE
+            binding.songMixonTg.visibility = View.VISIBLE
+        }
+        binding.songMixonTg.setOnClickListener {
+            binding.songMixoffTg.visibility = View.VISIBLE
+            binding.songMixonTg.visibility = View.GONE
+        }
+
         // 각 TextView에 가수 이름 설정
         singerTextViews.forEach { textView ->
             textView.text = singer
