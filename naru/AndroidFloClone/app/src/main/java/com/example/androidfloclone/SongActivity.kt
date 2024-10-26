@@ -36,6 +36,25 @@ class SongActivity : AppCompatActivity() {
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(true)
         }
+
+        binding.songRandomIv.setOnClickListener {
+            binding.songRandomIv.visibility = View.GONE
+            binding.songRandomActiveIv.visibility = View.VISIBLE
+        }
+        binding.songRandomActiveIv.setOnClickListener {
+            binding.songRandomIv.visibility = View.VISIBLE
+            binding.songRandomActiveIv.visibility = View.GONE
+        }
+
+        binding.songRepeatIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.GONE
+            binding.songRepeatActiveIv.visibility = View.VISIBLE
+        }
+        binding.songRepeatActiveIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.VISIBLE
+            binding.songRepeatActiveIv.visibility = View.GONE
+        }
+
         if(intent.hasExtra("title") && intent.hasExtra("singer")) {
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
