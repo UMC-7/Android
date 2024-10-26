@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         //ViewPager2 어댑터 설정
         val panelAdapter = PannerVPAdapter(this)
         binding.homePannelBackgroundVp.adapter = panelAdapter
-        //어댑터와 인디케이터 연결
+        //ViewPager2와 인디케이터 연결
         binding.homePannelBackgroundIndi.setViewPager(binding.homePannelBackgroundVp)
         //자동 전환
         startAutoSlide(panelAdapter)
