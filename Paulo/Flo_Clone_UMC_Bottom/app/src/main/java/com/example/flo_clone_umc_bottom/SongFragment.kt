@@ -1,6 +1,6 @@
 package com.example.flo_clone_umc_bottom
 
-data class Song(
+data class SongFragment(
     val title : String = "",
     val singer : String = ""
 )
