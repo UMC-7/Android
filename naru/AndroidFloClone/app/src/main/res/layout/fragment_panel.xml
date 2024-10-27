@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/home_pannel_background_iv"
+        android:id="@+id/home_panel_background_iv"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:scaleType="centerCrop"

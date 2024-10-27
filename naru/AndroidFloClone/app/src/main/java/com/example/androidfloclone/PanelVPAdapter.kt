@@ -1,10 +1,9 @@
 package com.example.androidfloclone
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class PannelVPAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class PanelVPAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private val fragmentList: ArrayList<Fragment> = ArrayList()
 
     override fun getItemCount(): Int = fragmentList.size
