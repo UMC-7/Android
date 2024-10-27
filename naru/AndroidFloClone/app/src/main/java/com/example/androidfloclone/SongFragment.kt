@@ -34,6 +34,7 @@ class SongFragment : Fragment() {
             binding.songSingerName10Tv
         )
 
+        // 내 취향 버튼 이미지 변경
         binding.songMixoffTg.setOnClickListener {
             binding.songMixoffTg.visibility = View.GONE
             binding.songMixonTg.visibility = View.VISIBLE

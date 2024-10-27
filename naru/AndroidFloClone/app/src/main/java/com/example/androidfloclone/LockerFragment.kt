@@ -21,9 +21,11 @@ class LockerFragment : Fragment() {
     ): View? {
         binding = FragmentLockerBinding.inflate(inflater, container, false)
 
+        // ViewPager 에 어탭터 연결
         val lockerAdapter = LockerVPAdapter(this)
         binding.lockerContentVp.adapter = lockerAdapter
 
+        // 탭 레이아웃과 뷰 페이저를 연결하고 탭 제목 설정
         TabLayoutMediator(binding.lockerContentTb, binding.lockerContentVp) {
             tab, position ->
             tab.text = information[position]
