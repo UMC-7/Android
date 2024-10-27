@@ -1,6 +1,8 @@
 package com.example.flo_clone_umc_bottom
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings.Global.putInt
 import android.provider.Settings.Global.putString
 import android.view.LayoutInflater
@@ -10,9 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import me.relex.circleindicator.CircleIndicator2
 import com.example.flo_clone_umc_bottom.databinding.FragmentHomeBinding
+import java.util.Timer
+import java.util.TimerTask
 
 class HomeFragment : Fragment() {
 
+    private val timer = Timer()
+    private val handler = Handler(Looper.getMainLooper())
     lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -80,7 +86,42 @@ class HomeFragment : Fragment() {
         binding.homePannelBackgroundIv.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         binding.homeCircleCi.setViewPager(binding.homePannelBackgroundIv)
+        startAutoSlide(homeBannerAdapter)
 
         return binding.root
+    }
+
+    private fun startAutoSlide(adapter: HomeBannerVPAdapter) {
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                handler.post {
+                    val nextItem = binding.homePannelBackgroundIv.currentItem + 1
+                    if (nextItem < adapter.itemCount) {
+                        binding.homePannelBackgroundIv.currentItem = nextItem
+                    } else {
+                        binding.homePannelBackgroundIv.currentItem = 0
+                    }
+                }
+            }
+        }, 3000, 3000)
+    }
+
+//    private fun startAutoSlide(adpater : BannerVPAdapter) {
+//        // 일정 간격으로 슬라이드 변경 (3초마다)
+//        timer.scheduleAtFixedRate(3000, 3000) {
+//            handler.post {
+//                val nextItem = binding.homePannelBackgroundVp.currentItem + 1
+//                if (nextItem < adpater.itemCount) {
+//                    binding.homePannelBackgroundVp.currentItem = nextItem
+//                } else {
+//                    binding.homePannelBackgroundVp.currentItem = 0 // 마지막 페이지에서 첫 페이지로 순환
+//                }
+//            }
+//        }
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
     }
 }
