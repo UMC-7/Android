@@ -15,11 +15,20 @@ class AlbumFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
+
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container,false)
 
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
+        }
+
+        binding.songMixoffTg.setOnClickListener {
+            setMixStatus(true)
+        }
+        binding.songMixonTg.setOnClickListener {
+            setMixStatus(false)
         }
 
         val albumTitle = arguments?.getString("ALBUM_TITLE")
@@ -42,5 +51,15 @@ class AlbumFragment : Fragment() {
         }
         return binding.root
 
+
+    }
+    fun setMixStatus(isPlaying : Boolean) {
+        if (isPlaying) {
+            binding.songMixoffTg.visibility = View.GONE
+            binding.songMixonTg.visibility = View.VISIBLE
+        } else {
+            binding.songMixoffTg.visibility = View.VISIBLE
+            binding.songMixonTg.visibility = View.GONE
+        }
     }
 }
