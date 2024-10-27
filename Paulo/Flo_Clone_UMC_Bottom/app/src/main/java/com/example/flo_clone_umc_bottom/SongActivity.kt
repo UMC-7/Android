@@ -22,6 +22,20 @@ class SongActivity : AppCompatActivity() {
                setPlayerStatus(true)
           }
 
+          binding.songRepeatIv.setOnClickListener {
+               setRepeatStatus(false)
+          }
+          binding.songRepeatingIv.setOnClickListener {
+               setRepeatStatus(true)
+          }
+
+          binding.songRandomIv.setOnClickListener {
+               setRandomStatus(false)
+          }
+          binding.songRandomingIv.setOnClickListener {
+               setRandomStatus(true)
+          }
+
           if(intent.hasExtra("title") && intent.hasExtra("singer")){
                binding.songMusicTitleTv.text = intent.getStringExtra("title")
                binding.songSingerNameTv.text = intent.getStringExtra("singer")
@@ -43,6 +57,27 @@ class SongActivity : AppCompatActivity() {
           else {
                binding.songMiniplayerIv.visibility = View.GONE
                binding.songPauseIv.visibility = View.VISIBLE
+          }
+     }
+
+     fun setRepeatStatus(isPlaying : Boolean){
+          if(isPlaying){
+               binding.songRepeatIv.visibility = View.VISIBLE
+               binding.songRepeatingIv.visibility = View.GONE
+          }
+          else {
+               binding.songRepeatIv.visibility = View.GONE
+               binding.songRepeatingIv.visibility = View.VISIBLE
+          }
+     }
+
+     fun setRandomStatus(isPlaying : Boolean) {
+          if (isPlaying) {
+               binding.songRandomIv.visibility = View.VISIBLE
+               binding.songRandomingIv.visibility = View.GONE
+          } else {
+               binding.songRandomIv.visibility = View.GONE
+               binding.songRandomingIv.visibility = View.VISIBLE
           }
      }
 }
