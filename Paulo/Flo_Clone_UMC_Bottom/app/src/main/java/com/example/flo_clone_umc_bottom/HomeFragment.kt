@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import me.relex.circleindicator.CircleIndicator2
 import com.example.flo_clone_umc_bottom.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -70,6 +71,15 @@ class HomeFragment : Fragment() {
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
         binding.homeBannerVp.adapter = bannerAdapter
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        val homeBannerAdapter = HomeBannerVPAdapter(this)
+        homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
+        homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
+        homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
+        binding.homePannelBackgroundIv.adapter = homeBannerAdapter
+        binding.homePannelBackgroundIv.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        binding.homeCircleCi.setViewPager(binding.homePannelBackgroundIv)
 
         return binding.root
     }
