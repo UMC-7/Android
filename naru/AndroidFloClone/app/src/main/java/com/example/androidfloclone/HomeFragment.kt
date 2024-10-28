@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
-    private lateinit var job: Job // 자동 슬라이드
+    private lateinit var binding: FragmentHomeBinding
+    private var job: Job? = null // 자동 슬라이드 Job을 nullable로 변경
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +38,8 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm,albumFragment)
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, albumFragment)
                 .commitAllowingStateLoss()
         }
 
@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.adapter = bannerAdapter
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        // 패널 Viewpager 어댑터 설정
+        // 패널 ViewPager 어댑터 설정
         val panelAdapter = PanelVPAdapter(this)
         panelAdapter.addFragment(PanelFragment(R.drawable.img_first_album_default))
         panelAdapter.addFragment(PanelFragment(R.drawable.img_first_album_default))
@@ -63,14 +63,14 @@ class HomeFragment : Fragment() {
         // 패널 뷰페이저와 인디케이터 연결
         binding.homePannelIndicator.setViewPager(binding.homePannelBackgroundVp)
 
-        // 자동 슬라이드 시작
-        startAutoScroll()
-
         return binding.root
     }
 
     // 자동 슬라이드 기능
     private fun startAutoScroll() {
+        // 기존 job이 있으면 중단
+        stopAutoScroll()
+
         job = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
                 delay(5000)
@@ -81,9 +81,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // 프래그먼트가 파괴될 때 코루틴 작업 취소
-    override fun onDestroy() {
-        super.onDestroy()
-        job.cancel()
+    private fun stopAutoScroll() {
+        job?.cancel()
+        job = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScroll()
     }
 }
