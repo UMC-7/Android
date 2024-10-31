@@ -51,4 +51,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.viewpager2)
     implementation(libs.circle.indicator)   //circleindicator
+    implementation(libs.androidx.core.splashscreen)
+
 }
