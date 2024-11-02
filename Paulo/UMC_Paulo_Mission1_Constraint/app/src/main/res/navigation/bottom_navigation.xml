@@ -8,7 +8,6 @@
         android:id="@+id/item_search_img"
         android:name="com.example.myapplication.SearchFragment"
         tools:layout="@layout/fragment_search"/>
-
     <fragment
         android:id="@+id/item_home_img"
         android:name="com.example.myapplication.HomeFragment"
@@ -17,5 +16,9 @@
         android:id="@+id/item_setting_img"
         android:name="com.example.myapplication.SettingFragment"
         tools:layout="@layout/fragment_setting"/>
+    <fragment
+        android:id="@+id/item_timer_img"
+        android:name="com.example.myapplication.TimerFragment"
+        tools:layout="@layout/fragment_timer"/>
 
 </navigation>

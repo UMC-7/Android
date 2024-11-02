@@ -18,6 +18,7 @@ import com.example.myapplication.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+    var position = 2
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentcon) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomnav.setupWithNavController(navController)
+
+
 
         binding.bottomnav.setOnItemSelectedListener { item ->
             val navOptionsLeftToRight = NavOptions.Builder()
@@ -45,26 +48,50 @@ class MainActivity : AppCompatActivity() {
                 .setPopExitAnim(R.anim.from_right)
                 .build()
 
+
+
             when (item.itemId) {
+                R.id.item_timer_img -> {
+                    if(position < 4) {
+                        navController.navigate(R.id.item_timer_img, null,navOptionsLeftToRight)
+                    }
+                    else if(position > 4){
+
+                    }
+                    position = 4
+                    true
+                }
+
                 R.id.item_search_img -> {
-                    navController.navigate(R.id.item_search_img, null, navOptionsRightToLeft)
+                    if(position < 1) {
+
+                    }
+                    else if(position > 1) {
+                        navController.navigate(R.id.item_search_img, null, navOptionsRightToLeft)
+                    }
+                    position = 1
                     true
                 }
 
                 R.id.item_home_img -> {
-                    // search에서 home으로 이동 시 오른쪽에서 왼쪽으로 애니메이션
-                    if (binding.bottomnav.selectedItemId == R.id.item_search_img) {
-                        navController.navigate(R.id.item_home_img, null, navOptionsLeftToRight)
-                    }
-                    // setting에서 home으로 이동 시 왼쪽에서 오른쪽으로 애니메이션
-                    else if (binding.bottomnav.selectedItemId == R.id.item_setting_img) {
+                    if(position > 2) {
                         navController.navigate(R.id.item_home_img, null, navOptionsRightToLeft)
                     }
+                    else if(position < 2) {
+                        navController.navigate(R.id.item_home_img, null, navOptionsLeftToRight)
+                    }
+                    position = 2
                     true
                 }
 
                 R.id.item_setting_img -> {
-                    navController.navigate(R.id.item_setting_img, null, navOptionsLeftToRight)
+                    if(position > 3) {
+                        navController.navigate(R.id.item_setting_img, null, navOptionsRightToLeft)
+                    }
+                    else if(position < 3) {
+                        navController.navigate(R.id.item_setting_img, null, navOptionsLeftToRight)
+                    }
+                    position = 3
                     true
                 }
                 else -> false

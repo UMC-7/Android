@@ -82,10 +82,10 @@ class HomeFragment : Fragment() {
         homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
         homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
         homeBannerAdapter.addFragment(BannerFragment(R.drawable.img_first_album_default))
-        binding.homePannelBackgroundIv.adapter = homeBannerAdapter
-        binding.homePannelBackgroundIv.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.homePannelBackgroundVp.adapter = homeBannerAdapter
+        binding.homePannelBackgroundVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        binding.homeCircleCi.setViewPager(binding.homePannelBackgroundIv)
+        binding.homeCircleCi.setViewPager(binding.homePannelBackgroundVp)
         startAutoSlide(homeBannerAdapter)
 
         return binding.root
@@ -95,11 +95,11 @@ class HomeFragment : Fragment() {
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 handler.post {
-                    val nextItem = binding.homePannelBackgroundIv.currentItem + 1
+                    val nextItem = binding.homePannelBackgroundVp.currentItem + 1
                     if (nextItem < adapter.itemCount) {
-                        binding.homePannelBackgroundIv.currentItem = nextItem
+                        binding.homePannelBackgroundVp.currentItem = nextItem
                     } else {
-                        binding.homePannelBackgroundIv.currentItem = 0
+                        binding.homePannelBackgroundVp.currentItem = 0
                     }
                 }
             }
