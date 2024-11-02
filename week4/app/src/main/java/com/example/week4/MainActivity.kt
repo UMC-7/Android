@@ -5,10 +5,115 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.week4.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.sql.Types.NULL
 import java.util.Locale
+import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
+
+//* By Coroutine
     private lateinit var binding: ActivityMainBinding
+    private lateinit var timer: TimerCoroutine
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        timer = TimerCoroutine()
+
+        binding.startButtonTv.setOnClickListener {
+            timer.startTimer()
+        }
+        binding.pauseButtonTv.setOnClickListener {
+            timer.pauseTimer()
+        }
+
+        binding.clearButtonTv.setOnClickListener {
+            timer.resetTimer()
+        }
+
+    }
+
+    inner class TimerCoroutine : CoroutineScope{    //binding 사용 위해 inner class로 작성
+        //코루틴 환경 구성
+        private var job = Job()
+        override val coroutineContext: CoroutineContext
+            get() = Dispatchers.Main + job
+
+        //멤버 변수
+        private var minute: Int = 0
+        private var second: Int = 0
+        private var mills: Float = 0f
+        private var isOn : Boolean = false
+
+        fun startTimer(){
+            isOn = true
+
+            job = Job()
+
+            launch {
+                binding.pauseButtonTv.visibility = View.VISIBLE
+                binding.startButtonTv.visibility = View.GONE
+
+                while(true){
+                    if(isOn) {
+                        delay(10) // 10ms마다 타이머 업데이트
+                        mills += 10
+
+                        if (mills%1000 == 0f) {
+                            second++
+                            mills = 0f
+                        }
+                        if (second%60 == 0 && second != 0) {
+                            minute++
+                            second = 0
+                        }
+
+                        // UI 업데이트 콜백 호출
+                        binding.timerTv.text = String.format(Locale.US,"%d:%02d.%02d", minute, second, (mills / 10).toInt())
+                    }
+                }
+
+            }
+
+        }
+
+        fun pauseTimer(){
+            isOn = false
+            job.cancel()    //코루틴 즉시 종료하여 에러 방지
+
+            binding.pauseButtonTv.visibility = View.GONE
+            binding.startButtonTv.visibility = View.VISIBLE
+        }
+
+        fun resetTimer(){
+            pauseTimer() // 타이머를 중지하고 초기화
+
+            // 시간 초기화
+            minute = 0
+            second = 0
+            mills = 0f
+
+            //UI 업데이트
+            binding.timerTv.text = "0:00.00"
+        }
+
+
+    }
+
+
+
+
+
+//* By Thread
+/*    private lateinit var binding: ActivityMainBinding
     private lateinit var timer : Timer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,4 +211,5 @@ class MainActivity : AppCompatActivity() {
             isReset = true
         }
     }
+ */
 }
