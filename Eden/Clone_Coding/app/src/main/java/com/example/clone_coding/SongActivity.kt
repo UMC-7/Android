@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,6 +24,7 @@ class SongActivity : AppCompatActivity() {
     private var isRandomColorChanged = false
     private lateinit var song : Song
     private lateinit var timer: Timer
+    private var mediaPlayer : MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +99,8 @@ class SongActivity : AppCompatActivity() {
                 intent.getStringExtra("singer")!!,
                 intent.getIntExtra("second", 0),
                 intent.getIntExtra("playTime",1),   //ArithmeticException 방지 임의 값
-                intent.getBooleanExtra("isPlaying", false)
+                intent.getBooleanExtra("isPlaying", false),
+                intent.getStringExtra("music")!!
             )
         }
 
@@ -111,6 +114,8 @@ class SongActivity : AppCompatActivity() {
         binding.songStartTimeTv.text = String.format(Locale.US, "%02d:%02d", song.currentTime/60, song.currentTime%60)
         binding.songEndTimeTv.text = String.format(Locale.US, "%02d:%02d", song.playTime/60, song.playTime%60)
         binding.songProgressSb.progress = (song.currentTime*100000/song.playTime)  //Seekbar의 max 값 100000
+        val music = R.raw.music_lilac
+        mediaPlayer = MediaPlayer.create(this, music)
 
         setPlayerStatus(song.isPlaying)
     }
@@ -123,9 +128,13 @@ class SongActivity : AppCompatActivity() {
         if(isPlaying){
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+            mediaPlayer?.start()
         } else {
             binding.songMiniplayerIv.visibility = View.VISIBLE
             binding.songPauseIv.visibility = View.GONE
+            if(mediaPlayer?.isPlaying == true){
+                mediaPlayer?.pause()
+            }
         }
 
     }

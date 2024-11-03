@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
 
         val song = Song(
-            binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(), 0, 60, false
+            binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),
+            0, 60, false, "music_lilac"
         )
 
         // 플레이어 띄울 때 데이터 전달
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("currentTime", song.currentTime)
             intent.putExtra("playTime", song.playTime)
             intent.putExtra("isPlaying", song.isPlaying)
+            intent.putExtra("music", song.music)
 
             getResultText.launch(intent)
         }
