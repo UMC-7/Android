@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clone_coding.databinding.ActivitySongBinding
+import com.google.gson.Gson
 import java.util.Locale
 import java.util.Timer
 
@@ -25,6 +26,7 @@ class SongActivity : AppCompatActivity() {
     private lateinit var song : Song
     private lateinit var timer: Timer
     private var mediaPlayer : MediaPlayer? = null
+    private var gson : Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +91,13 @@ class SongActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         setPlayerStatus(false)
+        song.currentTime = ((binding.songProgressSb.progress * song.playTime)/100)/1000 //SeekBar의 현재 위치 받아오기. ms 기준이라 /1000
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val songJson = gson.toJson(song)
+        editor.putString("songData", songJson)
+
+        editor.apply()
     }
 
     //스레드 종료

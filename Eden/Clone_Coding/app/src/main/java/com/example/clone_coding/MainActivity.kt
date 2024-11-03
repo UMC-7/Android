@@ -11,9 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.clone_coding.databinding.ActivityMainBinding
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+
+    private var song : Song = Song()
+    private var gson : Gson = Gson()
 
     private val getResultText = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -102,6 +106,26 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    private fun setMiniPlayer(song:Song){
+        binding.mainMiniplayerTitleTv.text = song.title
+        binding.mainMiniplayerSingerTv.text = song.singer
+        binding.mainProgressSb.progress = (song.currentTime*100000)/song.playTime
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val songJson = sharedPreferences.getString("songData", null)
+
+        song = if(songJson == null){
+            Song("라일락", "아이유(IU)", 0, 60, false, "music_lilac")
+        }else{
+            gson.fromJson(songJson, Song::class.java)
+        }
+
+        setMiniPlayer(song)
     }
 
 
