@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.car.ui.lib)
     implementation("me.relex:circleindicator:2.1.6")
+    implementation("com.google.code.gson:gson:2.8.7")
     //implementation("me.relex:circleindicator2:2.1.6")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
