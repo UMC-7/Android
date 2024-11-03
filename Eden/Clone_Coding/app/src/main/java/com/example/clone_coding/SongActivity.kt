@@ -85,10 +85,18 @@ class SongActivity : AppCompatActivity() {
 
     }
 
+    //사용자가 포커스 잃었을 때 음악 중지
+    override fun onPause() {
+        super.onPause()
+        setPlayerStatus(false)
+    }
+
     //스레드 종료
     override fun onDestroy() {
         super.onDestroy()
         timer.interrupt()
+        mediaPlayer?.release()  //MediaPlayer가 가지고 있던 리소스 해제
+        mediaPlayer = null  //MediaPlayer 해제
     }
 
     //intent 기반 Song 객체 생성
