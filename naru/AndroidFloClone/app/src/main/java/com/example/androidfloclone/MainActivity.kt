@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         // song 객체를 생성하고 미니 플레이어의 제목과 가수를 가져와 초기화
         val song = Song(
             binding.mainMiniplayerTitleTv.text.toString(),
-            binding.mainMiniplayerSingerTv.text.toString()
+            binding.mainMiniplayerSingerTv.text.toString(),
+            0, 60, false
         )
 
         // 미니 플레이어 클릭 시 songActivity로 이동
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
+            intent.putExtra("second", song.second)
+            intent.putExtra("playTime", song.playTime)
+            intent.putExtra("isPlaying", song.isPlaying)
             getSongResult.launch(intent)
         }
 
