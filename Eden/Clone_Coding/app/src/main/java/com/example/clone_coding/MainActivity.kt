@@ -48,11 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
 
-        val song = Song(
-            binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),
-            0, 60, false, "music_lilac"
-        )
-
         // 플레이어 띄울 때 데이터 전달
         binding.mainPlayerCl.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java)
