@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
-            songActivityLauncher.launch(intent)  // ActivityResultLauncher를 통해 SongActivity 실행
+            songActivityLauncher.launch(intent)
         }
 
         initBottomNavigation()

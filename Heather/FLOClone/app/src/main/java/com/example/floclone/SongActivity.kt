@@ -1,14 +1,20 @@
 package com.example.floclone
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.floclone.databinding.ActivitySongBinding
 
 class SongActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySongBinding
+    private var isRepeatActive = false
+    private var isRandomActive = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +24,7 @@ class SongActivity : AppCompatActivity() {
 
         // 내리기 버튼 클릭 시 현재 액티비티 종료
         binding.songDownIb.setOnClickListener {
-            returnSongTitle()  // 노래 제목 반환
+            returnSongTitle()  // 앨범 제목 반환
             finish()
         }
 
@@ -27,6 +33,32 @@ class SongActivity : AppCompatActivity() {
         }
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(true)
+        }
+
+        // 반복 재생 버튼 클릭 리스너 추가
+        binding.songRepeatIv.setOnClickListener {
+            isRepeatActive = !isRepeatActive
+            if (isRepeatActive) {
+                binding.songRepeatIv.setColorFilter(
+                    ContextCompat.getColor(this, R.color.select_color),
+                    PorterDuff.Mode.SRC_IN
+                )
+            } else {
+                binding.songRepeatIv.clearColorFilter()
+            }
+        }
+
+        // 랜덤 재생 버튼 클릭 리스너 추가
+        binding.songRandomIv.setOnClickListener {
+            isRandomActive = !isRandomActive
+            if (isRandomActive) {
+                binding.songRandomIv.setColorFilter(
+                    ContextCompat.getColor(this, R.color.select_color),
+                    PorterDuff.Mode.SRC_IN
+                )
+            } else {
+                binding.songRandomIv.clearColorFilter()
+            }
         }
 
         // MainActivity에서 전달받은 노래 제목과 가수 이름으로 TextView 값 변경
