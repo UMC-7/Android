@@ -3,11 +3,14 @@ package com.example.floclone
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.widget.TextView
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.floclone.databinding.ActivitySongBinding
+import java.util.concurrent.TimeUnit
 
 class SongActivity : AppCompatActivity() {
 
@@ -66,6 +69,20 @@ class SongActivity : AppCompatActivity() {
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
         }
+
+        // SeekBar 설정
+        binding.songProgressSb.max = 60000 // 1분
+        updateSeekBar()
+
+        binding.songProgressSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.songStartTimeTv.text = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(progress.toLong()),
+                    TimeUnit.MILLISECONDS.toSeconds(progress.toLong()) % 60)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     // 재생 버튼의 상태를 바꿔주는 메서드
@@ -85,6 +102,20 @@ class SongActivity : AppCompatActivity() {
         val songTitle = binding.songMusicTitleTv.text.toString()
         returnIntent.putExtra("songTitle", songTitle)
         setResult(RESULT_OK, returnIntent)
+    }
+
+
+    private fun updateSeekBar() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if(binding.songMiniplayerIv.visibility == View.GONE) { // 음악이 재생 중일 때
+                    val currentPosition = binding.songProgressSb.progress + 1000 // 1초씩 증가
+                    binding.songProgressSb.progress = currentPosition
+                }
+                handler.postDelayed(this, 1000)
+            }
+        }, 1000)
     }
 
     override fun onBackPressed() {
