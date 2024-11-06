@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private val songActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val songTitle = result.data?.getStringExtra("songTitle")
-            // 노래 제목을 Toast 메시지로 출력
             songTitle?.let {
                 Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
             }
