@@ -11,7 +11,7 @@ class BannerVPAdapter(fragment: Fragment) :FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment = fragmentlist[position]
 
-    fun addFragment(fragment: Fragment){
+    fun addFragment(fragment: Fragment) {
         fragmentlist.add(fragment)
         notifyItemInserted(fragmentlist.size-1)
     }
