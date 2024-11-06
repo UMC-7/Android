@@ -47,7 +47,7 @@ class TimerFragment:Fragment(R.layout.fragment_timer) {
         isRunning = true
         job = CoroutineScope(Dispatchers.Main).launch {
             while (isRunning) {
-                delay(1000L) // 1초마다 업데이트
+                delay(1000L)
                 timeInSeconds++
                 updateTimerText()
             }
@@ -56,7 +56,7 @@ class TimerFragment:Fragment(R.layout.fragment_timer) {
 
     private fun pauseStopwatch() {
         isRunning = false
-        job?.cancel() // Job 취소하여 스톱워치 중단
+        job?.cancel()
     }
 
     private fun resetStopwatch() {
