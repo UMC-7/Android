@@ -17,6 +17,7 @@ class SongActivity : AppCompatActivity() {
      lateinit var timer: Timer
      private var mediaPlayer: MediaPlayer? = null
      private var gson : Gson = Gson()
+     private var repeat = false //5주차 repeat 변수
 
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
@@ -26,6 +27,8 @@ class SongActivity : AppCompatActivity() {
           initSong()
           setPlayer(song)
 
+          var repeat = false
+
           binding.songMiniplayerIv.setOnClickListener {
                setPlayerStatus(false)
           }
@@ -34,11 +37,12 @@ class SongActivity : AppCompatActivity() {
           }
 
           binding.songRepeatIv.setOnClickListener {
-               setRepeatStatus(false)
-          }
-          binding.songRepeatingIv.setOnClickListener {
                setRepeatStatus(true)
           }
+          binding.songRepeatingIv.setOnClickListener {
+               setRepeatStatus(false)
+          }
+          //5주차 setRepeatStatus 함수에 맞춰 true, false 변경
 
           binding.songRandomIv.setOnClickListener {
                setRandomStatus(false)
@@ -98,41 +102,52 @@ class SongActivity : AppCompatActivity() {
           }
      }
 
-     private fun startTimer(){
+     private fun startTimer() {
+          if (::timer.isInitialized) {
+               timer.interrupt()
+          }
           timer = Timer(song.playTime, song.isPlaying)
           timer.start()
      }
+     //5주차 기존 타이머 스레드 종료 및 시작
 
-
-     inner class Timer(private val playTime: Int, var isPlaying: Boolean = true):Thread(){
-          private var second : Int = 0
-          private var mills : Float = 0f
+     inner class Timer(private val playTime: Int, var isPlaying: Boolean = true): Thread() {
+          private var second: Int = 0
+          private var mills: Float = 0f
 
           override fun run() {
                super.run()
                try {
                     while (true) {
-                         if(second >= playTime){
-                              break
+                         if (second >= playTime) {
+                              if (repeat) {
+                                   //5주차 repeat이 활성화된 경우, 노래를 다시 시작
+                                   second = 0
+                                   mills = 0f
+                                   mediaPlayer?.seekTo(0)
+                                   mediaPlayer?.start()
+                              } else {
+                                   break
+                              }
                          }
 
-                         if(isPlaying){
+                         if (isPlaying) {
                               sleep(50)
                               mills += 50
 
-                              runOnUiThread{
-                                   binding.songProgressSb.progress = ((mills / playTime)*100).toInt()
+                              runOnUiThread {
+                                   binding.songProgressSb.progress = ((mills / playTime) * 100).toInt()
                               }
-                              if(mills % 1000 == 0f){
-                                   runOnUiThread{
-                                        binding.songStartTimeTv.text = String.format("%02d:%02d",second / 60, second % 60)
+                              if (mills % 1000 == 0f) {
+                                   runOnUiThread {
+                                        binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
                                    }
                                    second++
                               }
                          }
                     }
-               }catch (e: InterruptedException){
-                    Log.d("Song","쓰레드가 죽었습니다. ${e.message}")
+               } catch (e: InterruptedException) {
+                    Log.d("Song", "쓰레드가 죽었습니다. ${e.message}")
                }
           }
      }
@@ -157,16 +172,17 @@ class SongActivity : AppCompatActivity() {
           mediaPlayer = null
      }
 
-     fun setRepeatStatus(isPlaying : Boolean){
-          if(isPlaying){
+     fun setRepeatStatus(isRepeating: Boolean) {
+          repeat = isRepeating // repeat 변수 업데이트
+          if (repeat) {
+               binding.songRepeatIv.visibility = View.GONE
+               binding.songRepeatingIv.visibility = View.VISIBLE
+          } else {
                binding.songRepeatIv.visibility = View.VISIBLE
                binding.songRepeatingIv.visibility = View.GONE
           }
-          else {
-               binding.songRepeatIv.visibility = View.GONE
-               binding.songRepeatingIv.visibility = View.VISIBLE
-          }
      }
+     //5주차 repeat에 맞춰 변경
 
      fun setRandomStatus(isPlaying : Boolean) {
           if (isPlaying) {

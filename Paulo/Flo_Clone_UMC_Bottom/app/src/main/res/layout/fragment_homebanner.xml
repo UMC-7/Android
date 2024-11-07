@@ -9,7 +9,7 @@
         android:id="@+id/banner_image_iv"
         android:layout_width="match_parent"
         android:layout_height="430dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/img_first_album_default"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
