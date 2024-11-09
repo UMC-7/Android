@@ -56,10 +56,17 @@ class SongActivity : AppCompatActivity() {
         binding.songRepeatIv.setOnClickListener {
             binding.songRepeatIv.visibility = View.GONE
             binding.songRepeatActiveIv.visibility = View.VISIBLE
+            binding.songRepeatOneIv.visibility = View.GONE
         }
         binding.songRepeatActiveIv.setOnClickListener {
-            binding.songRepeatIv.visibility = View.VISIBLE
+            binding.songRepeatIv.visibility = View.GONE
             binding.songRepeatActiveIv.visibility = View.GONE
+            binding.songRepeatOneIv.visibility = View.VISIBLE
+        }
+        binding.songRepeatOneIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.GONE
+            binding.songRepeatActiveIv.visibility = View.VISIBLE
+            binding.songRepeatOneIv.visibility = View.GONE
         }
     }
 
@@ -120,8 +127,19 @@ class SongActivity : AppCompatActivity() {
             try {
                 while (true) {
                     if (second >= playTime) {
-                        break
+                        if (binding.songRepeatOneIv.visibility == View.VISIBLE) {
+                            // 한곡 재생 모드일 때만 시간과 SeekBar 초기화
+                            second = 0
+                            mills = 0f
+                            runOnUiThread {
+                                binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
+                                binding.songProgressSb.progress = 0
+                            }
+                        } else {
+                            break // 한곡 재생 모드가 아닐 때 타이머 종료
+                        }
                     }
+
                     if (isPlaying) {
                         sleep(50)
                         mills += 50
@@ -129,6 +147,7 @@ class SongActivity : AppCompatActivity() {
                         runOnUiThread {
                             binding.songProgressSb.progress = ((mills / playTime) * 100).toInt()
                         }
+
                         if (mills % 1000 == 0f) {
                             runOnUiThread {
                                 binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
@@ -137,10 +156,10 @@ class SongActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }catch (e: InterruptedException) {
-                Log.d("Song", "스레드가 죽었습니다 ${e.message}")
+            } catch (e: InterruptedException) {
+                Log.d("Song", "스레드가 중지되었습니다: ${e.message}")
             }
-
         }
+
     }
 }
