@@ -21,7 +21,6 @@ import java.util.Timer
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private var isRepeatColorChanged = false
     private var isRandomColorChanged = false
     private lateinit var song : Song
     private lateinit var timer: Timer
@@ -46,13 +45,18 @@ class SongActivity : AppCompatActivity() {
         }
 
         //반복재생 설정
+        val images = listOf(R.drawable.nugu_btn_repeat_inactive, R.drawable.nugu_btn_repeat_all_active, R.drawable.nugu_btn_repeat_one_active) // 사용할 이미지 리스트
+        var currentIndex = 0
         binding.songRepeatIv.setOnClickListener {
-            if (isRepeatColorChanged) {
-                binding.songRepeatIv.setColorFilter(ContextCompat.getColor(this, R.color.flo), PorterDuff.Mode.SRC_ATOP)
-            } else {
-                binding.songRepeatIv.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryGrey), PorterDuff.Mode.SRC_ATOP)
+            currentIndex = (currentIndex + 1) % images.size // 인덱스 순환 설정
+            binding.songRepeatIv.setImageResource(images[currentIndex])
+
+            if(currentIndex==2){
+                mediaPlayer?.isLooping = true
             }
-            isRepeatColorChanged = !isRepeatColorChanged // 상태 반전
+            else{
+                mediaPlayer?.isLooping = false
+            }
         }
 
         //랜덤재생 설정
