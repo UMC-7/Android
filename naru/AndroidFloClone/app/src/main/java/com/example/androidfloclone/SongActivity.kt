@@ -142,7 +142,10 @@ class SongActivity : AppCompatActivity() {
                                 binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
                                 binding.songProgressSb.progress = 0
                             }
+
                         } else {
+                            mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제
+                            mediaPlayer = null // 미디어 플레이어 해제
                             break // 한곡 재생 모드가 아닐 때 타이머 종료
                         }
                     }
