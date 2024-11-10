@@ -86,7 +86,13 @@ class SongActivity : AppCompatActivity() {
                 intent.getStringExtra("music")!!
             )
         }
-        startTimer()
+
+        // MediaPlayer 초기화 및 저장된 위치로 이동
+        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+        mediaPlayer = MediaPlayer.create(this, music)
+        mediaPlayer?.seekTo(song.second * 1000)  // 밀리초 단위로 변환해서 이동
+
+        startTimer(song.second * 1000L)  // 저장된 second 값을 밀리초로 변환하여 전달
     }
 
     private fun setPlayer(song: Song) {
@@ -94,21 +100,20 @@ class SongActivity : AppCompatActivity() {
         binding.songSingerNameTv.text = intent.getStringExtra("singer")!!
         binding.songStartTimeTv.text = String.format("%02d:%02d",song.second / 60, song.second % 60)
         binding.songEndTimeTv.text = String.format("%02d:%02d",song.playTime / 60, song.playTime % 60)
-        binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
 
-        // SeekBar의 최대값을 노래 길이(ms)로 설정
+        // SeekBar 설정
         binding.songProgressSb.max = song.playTime * 1000
         binding.songProgressSb.progress = song.second * 1000
 
-        val music = resources.getIdentifier(song.music, "raw", this.packageName)
-        mediaPlayer = MediaPlayer.create(this, music)
+//        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+//        mediaPlayer = MediaPlayer.create(this, music)
 
         // SeekBar 클릭 이벤트 리스너 설정
         binding.songProgressSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     mediaPlayer?.seekTo(progress)
-                    timer.mills = progress.toFloat()
+                    timer.mills = progress.toLong()
                     timer.second = progress / 1000
                 }
                 binding.songStartTimeTv.text = String.format("%02d:%02d",
@@ -129,7 +134,12 @@ class SongActivity : AppCompatActivity() {
         if (isPlaying) {
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
-            mediaPlayer?.start()
+            // mediaPlayer?.start()
+
+            if (mediaPlayer?.isPlaying == false) {
+                mediaPlayer?.seekTo(binding.songProgressSb.progress)  // 현재 위치로 이동
+                mediaPlayer?.start()
+            }
         } else {
             binding.songMiniplayerIv.visibility = View.VISIBLE
             binding.songPauseIv.visibility = View.GONE
@@ -139,14 +149,18 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-    private fun startTimer() {
-        timer = Timer(song.playTime,song.isPlaying)
+    private fun startTimer(initialMills: Long) { // initialMills 파라미터 추가
+        timer = Timer(song.playTime,song.isPlaying, initialMills)
         timer.start()
     }
 
-    inner class Timer(private val playTime: Int, var isPlaying: Boolean = true): Thread() {
-        var second : Int = 0
-        var mills: Float = 0f
+    inner class Timer(
+        private val playTime: Int,
+        var isPlaying: Boolean = true,
+        initialMills: Long = 0  // 생성자 파라미터 추가
+    ): Thread() {
+        var second: Int = (initialMills / 1000).toInt()
+        var mills: Long = initialMills  // 초기값 설정
 
         override fun run() {
             super.run()
@@ -155,13 +169,16 @@ class SongActivity : AppCompatActivity() {
                     if (mills >= playTime * 1000) {
                         if (isRepeatActive) {
                             // 반복 재생이 활성화 되어있으면 처음부터 다시 시작
-                            mills = 0f
+                            mills = 0
                             second = 0
                             runOnUiThread {
                                 binding.songProgressSb.progress = 0
                                 binding.songStartTimeTv.text = "00:00"
                                 mediaPlayer?.seekTo(0)
                                 mediaPlayer?.start()
+
+                                // 반복 재생 시작 시에도 SharedPreferences 업데이트
+                                updateSharedPreferences()
                             }
                         } else {
                             runOnUiThread {
@@ -176,31 +193,44 @@ class SongActivity : AppCompatActivity() {
                         mills += 50
 
                         runOnUiThread {
-                            // binding.songProgressSb.progress = ((mills / playTime)*100).toInt()
                             // progress를 밀리초 단위로 계산
-                            binding.songProgressSb.progress = (mills).toInt()
+                            binding.songProgressSb.progress = mills.toInt()
+
+                            // 1초마다 SharedPreferences 업데이트
+                            if (mills % 1000 == 0L) {
+                                updateSharedPreferences()
+                            }
                         }
 
-                        if (mills % 1000 == 0f) {
+                        if (mills % 1000 == 0L) {
                             second = (mills / 1000).toInt()
                             runOnUiThread {
-                                binding.songStartTimeTv.text = String.format("%02d:%02d",second / 60, second % 60)
+                                binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
                             }
-                            // second++
                         }
                     }
                 }
-
-            } catch (e: InterruptedException){
-                Log.d("Song","쓰레드가 죽었습니다. ${e.message}")
+            } catch (e: InterruptedException) {
+                Log.d("Song", "쓰레드가 죽었습니다. ${e.message}")
             }
+        }
+
+        private fun updateSharedPreferences() {
+            song.second = (mills / 1000).toInt()
+            song.playTime = playTime
+            val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            val songJson = gson.toJson(song)
+            editor.putString("songData", songJson)
+            editor.apply()
         }
     }
 
     override fun onPause() {
         super.onPause()
         setPlayerStatus(false)
-        song.second = ((binding.songProgressSb.progress * song.playTime)/100)/1000
+        // 진행 시간 계산 방식 수정
+        song.second = (binding.songProgressSb.progress / 1000)  // 밀리초를 초로 변환
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit() // 에디터
         val songJson = gson.toJson(song)
@@ -215,110 +245,5 @@ class SongActivity : AppCompatActivity() {
         mediaPlayer?.release()
         mediaPlayer = null
     }
-
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        binding = ActivitySongBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        // 내리기 버튼 클릭 시 현재 액티비티 종료
-//        binding.songDownIb.setOnClickListener {
-//            returnSongTitle()  // 앨범 제목 반환
-//            finish()
-//        }
-//
-//        binding.songMiniplayerIv.setOnClickListener {
-//            setPlayerStatus(false)
-//        }
-//        binding.songPauseIv.setOnClickListener {
-//            setPlayerStatus(true)
-//        }
-//
-//        // 반복 재생 버튼 클릭 리스너 추가
-//        binding.songRepeatIv.setOnClickListener {
-//            isRepeatActive = !isRepeatActive
-//            if (isRepeatActive) {
-//                binding.songRepeatIv.setColorFilter(
-//                    ContextCompat.getColor(this, R.color.select_color),
-//                    PorterDuff.Mode.SRC_IN
-//                )
-//            } else {
-//                binding.songRepeatIv.clearColorFilter()
-//            }
-//        }
-//
-//        // 랜덤 재생 버튼 클릭 리스너 추가
-//        binding.songRandomIv.setOnClickListener {
-//            isRandomActive = !isRandomActive
-//            if (isRandomActive) {
-//                binding.songRandomIv.setColorFilter(
-//                    ContextCompat.getColor(this, R.color.select_color),
-//                    PorterDuff.Mode.SRC_IN
-//                )
-//            } else {
-//                binding.songRandomIv.clearColorFilter()
-//            }
-//        }
-//
-//        // MainActivity에서 전달받은 노래 제목과 가수 이름으로 TextView 값 변경
-//        if (intent.hasExtra("title") && intent.hasExtra("singer")) {
-//            binding.songMusicTitleTv.text = intent.getStringExtra("title")
-//            binding.songSingerNameTv.text = intent.getStringExtra("singer")
-//        }
-//
-//        // SeekBar 설정
-//        binding.songProgressSb.max = 60000 // 1분
-//        updateSeekBar()
-//
-//        binding.songProgressSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                binding.songStartTimeTv.text = String.format("%02d:%02d",
-//                    TimeUnit.MILLISECONDS.toMinutes(progress.toLong()),
-//                    TimeUnit.MILLISECONDS.toSeconds(progress.toLong()) % 60)
-//            }
-//            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-//            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-//        })
-//    }
-//
-//    // 재생 버튼의 상태를 바꿔주는 메서드
-//    fun setPlayerStatus(isPlaying : Boolean) {
-//        if (isPlaying) {
-//            binding.songMiniplayerIv.visibility = View.VISIBLE
-//            binding.songPauseIv.visibility = View.GONE
-//        } else {
-//            binding.songMiniplayerIv.visibility = View.GONE
-//            binding.songPauseIv.visibility = View.VISIBLE
-//        }
-//    }
-//
-//    // 노래 제목을 MainActivity로 반환하는 메서드
-//    private fun returnSongTitle() {
-//        val returnIntent = Intent()
-//        val songTitle = binding.songMusicTitleTv.text.toString()
-//        returnIntent.putExtra("songTitle", songTitle)
-//        setResult(RESULT_OK, returnIntent)
-//    }
-//
-//
-//    private fun updateSeekBar() {
-//        val handler = Handler(Looper.getMainLooper())
-//        handler.postDelayed(object : Runnable {
-//            override fun run() {
-//                if(binding.songMiniplayerIv.visibility == View.GONE) { // 음악이 재생 중일 때
-//                    val currentPosition = binding.songProgressSb.progress + 1000 // 1초씩 증가
-//                    binding.songProgressSb.progress = currentPosition
-//                }
-//                handler.postDelayed(this, 1000)
-//            }
-//        }, 1000)
-//    }
-//
-//    override fun onBackPressed() {
-//        returnSongTitle()  // 뒤로가기 눌렀을 때도 데이터 반환
-//        super.onBackPressed()
-//    }
 
 }
