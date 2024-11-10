@@ -68,8 +68,8 @@ class SongActivity : AppCompatActivity() {
             binding.songRepeatOneIv.visibility = View.VISIBLE
         }
         binding.songRepeatOneIv.setOnClickListener {
-            binding.songRepeatIv.visibility = View.GONE
-            binding.songRepeatActiveIv.visibility = View.VISIBLE
+            binding.songRepeatIv.visibility = View.VISIBLE
+            binding.songRepeatActiveIv.visibility = View.GONE
             binding.songRepeatOneIv.visibility = View.GONE
         }
     }
