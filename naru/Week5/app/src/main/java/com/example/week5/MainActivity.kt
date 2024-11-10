@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         }
         builder.setNegativeButton("아니오") { dialog, which ->
             noteText = ""
+            binding.writeTv.setText("") // EditText의 내용도 비우기
+            binding.writeTv.hint = binding.writeTv.hint // XML에서 설정된 Hint 가져오기
         }
         builder.show()
     }
