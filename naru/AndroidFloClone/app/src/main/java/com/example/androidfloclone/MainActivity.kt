@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         val song = Song(
             binding.mainMiniplayerTitleTv.text.toString(),
             binding.mainMiniplayerSingerTv.text.toString(),
-            0, 60, false
+            0, 60, false,
+            "music_sad"
         )
 
         // 미니 플레이어 클릭 시 songActivity로 이동
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("second", song.second)
             intent.putExtra("playTime", song.playTime)
             intent.putExtra("isPlaying", song.isPlaying)
+            intent.putExtra("music", song.music)
             getSongResult.launch(intent)
         }
 
