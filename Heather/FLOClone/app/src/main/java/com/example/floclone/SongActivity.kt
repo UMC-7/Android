@@ -9,6 +9,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.floclone.databinding.ActivitySongBinding
@@ -24,8 +25,8 @@ class SongActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var gson: Gson = Gson()
 
-//    private var isRepeatActive = false
-//    private var isRandomActive = false
+    private var isRepeatActive = false
+    private var isRandomActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,32 @@ class SongActivity : AppCompatActivity() {
 
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(false)
+        }
+
+        // 반복 재생 버튼 클릭 리스너 추가
+        binding.songRepeatIv.setOnClickListener {
+            isRepeatActive = !isRepeatActive
+            if (isRepeatActive) {
+                binding.songRepeatIv.setColorFilter(
+                    ContextCompat.getColor(this, R.color.select_color),
+                    PorterDuff.Mode.SRC_IN
+                )
+            } else {
+                binding.songRepeatIv.clearColorFilter()
+            }
+        }
+
+        // 랜덤 재생 버튼 클릭 리스너 추가
+        binding.songRandomIv.setOnClickListener {
+            isRandomActive = !isRandomActive
+            if (isRandomActive) {
+                binding.songRandomIv.setColorFilter(
+                    ContextCompat.getColor(this, R.color.select_color),
+                    PorterDuff.Mode.SRC_IN
+                )
+            } else {
+                binding.songRandomIv.clearColorFilter()
+            }
         }
     }
 
@@ -68,8 +95,30 @@ class SongActivity : AppCompatActivity() {
         binding.songStartTimeTv.text = String.format("%02d:%02d",song.second / 60, song.second % 60)
         binding.songEndTimeTv.text = String.format("%02d:%02d",song.playTime / 60, song.playTime % 60)
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
+
+        // SeekBar의 최대값을 노래 길이(ms)로 설정
+        binding.songProgressSb.max = song.playTime * 1000
+        binding.songProgressSb.progress = song.second * 1000
+
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this, music)
+
+        // SeekBar 클릭 이벤트 리스너 설정
+        binding.songProgressSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    mediaPlayer?.seekTo(progress)
+                    timer.mills = progress.toFloat()
+                    timer.second = progress / 1000
+                }
+                binding.songStartTimeTv.text = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(progress.toLong()),
+                    TimeUnit.MILLISECONDS.toSeconds(progress.toLong()) % 60)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         setPlayerStatus(song.isPlaying)
     }
 
@@ -96,30 +145,48 @@ class SongActivity : AppCompatActivity() {
     }
 
     inner class Timer(private val playTime: Int, var isPlaying: Boolean = true): Thread() {
-        private var second : Int = 0
-        private var mills: Float = 0f
+        var second : Int = 0
+        var mills: Float = 0f
 
         override fun run() {
             super.run()
             try {
                 while (true) {
-                    if (second >= playTime){
-                        break
+                    if (mills >= playTime * 1000) {
+                        if (isRepeatActive) {
+                            // 반복 재생이 활성화 되어있으면 처음부터 다시 시작
+                            mills = 0f
+                            second = 0
+                            runOnUiThread {
+                                binding.songProgressSb.progress = 0
+                                binding.songStartTimeTv.text = "00:00"
+                                mediaPlayer?.seekTo(0)
+                                mediaPlayer?.start()
+                            }
+                        } else {
+                            runOnUiThread {
+                                setPlayerStatus(false)
+                            }
+                            break
+                        }
                     }
 
-                    if (isPlaying){
+                    if (isPlaying) {
                         sleep(50)
                         mills += 50
 
                         runOnUiThread {
-                            binding.songProgressSb.progress = ((mills / playTime)*100).toInt()
+                            // binding.songProgressSb.progress = ((mills / playTime)*100).toInt()
+                            // progress를 밀리초 단위로 계산
+                            binding.songProgressSb.progress = (mills).toInt()
                         }
 
-                        if (mills % 1000 == 0f){
+                        if (mills % 1000 == 0f) {
+                            second = (mills / 1000).toInt()
                             runOnUiThread {
                                 binding.songStartTimeTv.text = String.format("%02d:%02d",second / 60, second % 60)
                             }
-                            second++
+                            // second++
                         }
                     }
                 }

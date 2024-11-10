@@ -116,10 +116,13 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        // SharedPreferences 초기화
+        sharedPreferences.edit().clear().apply()
+
         val songJson = sharedPreferences.getString("songData", null)
 
         song = if (songJson == null) {
-            Song("라일락", "아이유(IU)", 0,60, false, "relaxing_piano_music")
+            Song("라일락", "아이유(IU)", 0,60, false, "music")
         } else {
             gson.fromJson(songJson, Song::class.java)
         }
