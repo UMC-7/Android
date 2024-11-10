@@ -21,7 +21,8 @@ class HomeFragment : Fragment() {
 
         // 각 ImageView에 대한 클릭 리스너 설정
         binding.imageViewR.setOnClickListener {
-            openActivity2()
+            val intent = Intent(requireActivity(), MemoActivity::class.java)
+            startActivity(intent)
         }
         binding.imageViewB.setOnClickListener {
             openActivity2()
