@@ -64,7 +64,7 @@
                     android:id="@+id/main_miniplayer_singer_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="The Voluntees"
+                    android:text="The Volunteers"
                     android:textSize="13sp" />
 
             </LinearLayout>
