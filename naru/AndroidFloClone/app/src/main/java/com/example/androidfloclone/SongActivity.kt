@@ -142,6 +142,9 @@ class SongActivity : AppCompatActivity() {
                                 binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
                                 binding.songProgressSb.progress = 0
                             }
+                            // 노래를 처음으로 되돌림
+                            mediaPlayer?.seekTo(0)
+                            mediaPlayer?.start()  // 처음부터 재생 시작
 
                         } else {
                             mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제

@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         val jsonToSong = sharedPreferences.getString("songData", null)
 
         song = if(jsonToSong == null) { // 최초 실행 시
-            Song("S.A.D", "The Vollunteers", 0, 60, false, "music_lilac")
+            Song("S.A.D", "The Vollunteers", 0, 60, false, "music_sad")
         } else { // SongActivity에서 노래가 한번이라도 pause 된 경우
             gson.fromJson(jsonToSong, Song::class.java)
         }
