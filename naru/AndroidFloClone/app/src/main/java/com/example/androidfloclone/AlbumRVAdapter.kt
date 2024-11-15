@@ -9,7 +9,7 @@ import com.example.androidfloclone.databinding.ItemAlbumBinding
 class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>(){
 
     interface MyItemClickListener {
-        fun onItemClick()
+        fun onItemClick(album: Album)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -26,7 +26,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
     override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
         holder.bind(albumList[position])
         holder.itemView.setOnClickListener{
-            myItemClickListener.onItemClick()
+            myItemClickListener.onItemClick(albumList[position])
         }
     }
 

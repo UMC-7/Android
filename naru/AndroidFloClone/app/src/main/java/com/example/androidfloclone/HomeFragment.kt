@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidfloclone.databinding.FragmentHomeBinding
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -60,10 +61,8 @@ class HomeFragment : Fragment() {
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         albumRVAdapter.setMyItemCLickListener(object: AlbumRVAdapter.MyItemClickListener {
-            override fun onItemClick() {
-                (context as MainActivity).supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_frm, AlbumFragment())
-                    .commitAllowingStateLoss()
+            override fun onItemClick(album: Album) {
+                changeAlbumFragment(album)
             }
         })
 
@@ -88,6 +87,18 @@ class HomeFragment : Fragment() {
         binding.homePannelIndicator.setViewPager(binding.homePannelBackgroundVp)
 
         return binding.root
+    }
+
+    private fun changeAlbumFragment(album: Album) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val albumJson = gson.toJson(album)
+                    putString("album", albumJson)
+                }
+            })
+            .commitAllowingStateLoss()
     }
 
     // 자동 슬라이드 기능
