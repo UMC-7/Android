@@ -10,11 +10,22 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
 
     interface MyItemClickListener {
         fun onItemClick(album: Album)
+        fun onRemoveAlbum(position: Int)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
     fun setMyItemCLickListener(itemClickListener: MyItemClickListener) {
         myItemClickListener = itemClickListener
+    }
+
+    fun addItem(album: Album) {
+        albumList.add(album)
+        notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int) {
+        albumList.removeAt(position)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumRVAdapter.ViewHolder {
@@ -28,6 +39,9 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         holder.itemView.setOnClickListener{
             myItemClickListener.onItemClick(albumList[position])
         }
+        /*holder.binding.itemAlbumTitleTv.setOnClickListener {
+            myItemClickListener.onRemoveAlbum(position)
+        }*/
     }
 
     override fun getItemCount(): Int = albumList.size
