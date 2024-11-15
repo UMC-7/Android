@@ -59,6 +59,14 @@ class HomeFragment : Fragment() {
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        albumRVAdapter.setMyItemCLickListener(object: AlbumRVAdapter.MyItemClickListener {
+            override fun onItemClick() {
+                (context as MainActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frm, AlbumFragment())
+                    .commitAllowingStateLoss()
+            }
+        })
+
         // 배너 ViewPager 어댑터 설정
         val bannerAdapter = BannerVPAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp3))
