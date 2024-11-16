@@ -99,6 +99,12 @@ class MainActivity : AppCompatActivity() {
         binding.mainProgressSb.progress = (song.second * 100000 / song.playTime)
     }
 
+    fun updateMiniPlayer(album: Album) {
+        binding.mainMiniplayerTitleTv.text = album.title
+        binding.mainMiniplayerSingerTv.text = album.singer
+        binding.mainProgressSb.progress = 0
+    }
+
     override fun onStart() {
         super.onStart()
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)

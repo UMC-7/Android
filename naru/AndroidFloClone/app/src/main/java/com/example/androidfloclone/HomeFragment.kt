@@ -1,6 +1,7 @@
 package com.example.androidfloclone
 
 import android.os.Bundle
+import android.os.DeadObjectException
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,10 +66,13 @@ class HomeFragment : Fragment() {
                 changeAlbumFragment(album)
             }
 
+            override fun onPlayImgClick(album: Album) {
+                changeMiniPlayer(album)
+            }
+
             override fun onRemoveAlbum(position: Int) {
                 albumRVAdapter.removeItem(position)
             }
-
         })
 
         // 배너 ViewPager 어댑터 설정
@@ -104,6 +108,10 @@ class HomeFragment : Fragment() {
                 }
             })
             .commitAllowingStateLoss()
+    }
+
+    private fun changeMiniPlayer(album: Album) {
+        (context as MainActivity).updateMiniPlayer(album)
     }
 
     // 자동 슬라이드 기능

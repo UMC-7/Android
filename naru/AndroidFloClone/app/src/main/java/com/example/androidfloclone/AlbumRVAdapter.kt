@@ -1,5 +1,6 @@
 package com.example.androidfloclone
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
 
     interface MyItemClickListener {
         fun onItemClick(album: Album)
+        fun onPlayImgClick(album: Album)
         fun onRemoveAlbum(position: Int)
     }
 
@@ -36,12 +38,20 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
         holder.bind(albumList[position])
-        holder.itemView.setOnClickListener{
+
+        holder.itemView.setOnClickListener {
+            Log.d("AlbumRVAdapter", "PlayButton: ${albumList[position].title}")
             myItemClickListener.onItemClick(albumList[position])
+        }
+        holder.binding.itemAlbumPlayImgIv.setOnClickListener{
+            Log.d("AlbumRVAdapter", "AlbumImg: ${albumList[position].title}")
+            myItemClickListener.onPlayImgClick(albumList[position])
         }
         /*holder.binding.itemAlbumTitleTv.setOnClickListener {
             myItemClickListener.onRemoveAlbum(position)
         }*/
+
+
     }
 
     override fun getItemCount(): Int = albumList.size
