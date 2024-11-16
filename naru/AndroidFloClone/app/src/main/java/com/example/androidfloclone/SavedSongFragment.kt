@@ -34,6 +34,12 @@ class SavedSongFragment : Fragment() {
             add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
             add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
             add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(Album("Summer", "The Volunteers", R.drawable.img_album_exp2))
+            add(Album("Drowning", "WOODZ", R.drawable.img_album_exp4))
+            add(Album("Magnetic", "아일릿 (ILLIT)", R.drawable.img_album_exp5))
+            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
         }
 
         val savedSongRVAdapter = SavedSongRVAdapter(albumDatas)
