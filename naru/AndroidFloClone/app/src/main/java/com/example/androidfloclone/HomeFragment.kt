@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
             override fun onRemoveAlbum(position: Int) {
                 albumRVAdapter.removeItem(position)
             }
-            
+
         })
 
         // 배너 ViewPager 어댑터 설정
