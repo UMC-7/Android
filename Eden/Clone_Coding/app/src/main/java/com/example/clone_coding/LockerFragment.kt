@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clone_coding.databinding.FragmentLockerBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,7 +28,6 @@ class LockerFragment : Fragment() {
             //탭의 제목 설정
                 tab, position -> tab.text = information[position]
         }.attach()
-
         return binding.root
 
     }
