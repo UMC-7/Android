@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidfloclone.databinding.FragmentSavedSongBinding
+import com.google.gson.Gson
 
 class SavedSongFragment : Fragment() {
 
@@ -39,6 +40,28 @@ class SavedSongFragment : Fragment() {
         binding.savedSongAlbumRv.adapter = savedSongRVAdapter
         binding.savedSongAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        savedSongRVAdapter.setMyItemClickListener(object: SavedSongRVAdapter.MyItemClickListener {
+            override fun onItemClick(album: Album) {
+                changeAlbumFragment(album)
+            }
+
+            override fun onRemoveAlbum(position: Int) {
+                savedSongRVAdapter.removeItem(position)
+            }
+        })
+
         return binding.root
+    }
+
+    private fun changeAlbumFragment(album: Album) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val albumJson = gson.toJson(album)
+                    putString("album", albumJson)
+                }
+            })
+            .commitAllowingStateLoss()
     }
 }
