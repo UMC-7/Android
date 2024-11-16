@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.clone_coding.databinding.FragmentHomeBinding
+import com.google.gson.Gson
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
 
@@ -17,6 +19,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
+    private var albumDatas = ArrayList<Album>()
 
 
     override fun onCreateView(
@@ -34,8 +37,6 @@ class HomeFragment : Fragment() {
         //자동 전환
         startAutoSlide(panelAdapter)
 
-        
-
         //특정 정보를 담을 AlbumFragment을 생성
         var lilacFragment = AlbumFragment()
         //bundle 이용해 정보 전달
@@ -46,12 +47,12 @@ class HomeFragment : Fragment() {
         lilacBundle.putInt("img", R.drawable.img_album_exp2)
         lilacFragment.arguments = lilacBundle
 
-        //클릭한 엘범과 동일한 엘범이 나타나도록 전환
-        binding.homeAlbumImgIv1.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm , lilacFragment)
-                .commitAllowingStateLoss()
-        }
+//        //클릭한 엘범과 동일한 엘범이 나타나도록 전환
+//        binding.homeAlbumImgIv1.setOnClickListener {
+//            (context as MainActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm , lilacFragment)
+//                .commitAllowingStateLoss()
+//        }
 
         var butterFragment = AlbumFragment()
 
@@ -62,11 +63,31 @@ class HomeFragment : Fragment() {
         butterBundle.putInt("img", R.drawable.img_album_exp)
         butterFragment.arguments = butterBundle
 
-        binding.homeAlbumImgIv2.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm , butterFragment)
-                .commitAllowingStateLoss()
+//        binding.homeAlbumImgIv2.setOnClickListener {
+//            (context as MainActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm , butterFragment)
+//                .commitAllowingStateLoss()
+//        }
+
+        //더미 데이터
+        albumDatas.apply {
+            add(Album("Lilac", "아이유(IU)", R.drawable.img_album_exp2))
+            add(Album("엄", "헌준타워", R.drawable.img_album_phj))
+            add(Album("Next Level", "에스파", R.drawable.img_album_exp3))
+            add(Album("Boy with Luv", "방탄소년단(BTS)", R.drawable.img_album_exp4))
+            add(Album("Weekend", "태연", R.drawable.img_album_exp6))
         }
+
+        var albumRVAdapter = AlbumRVAdapter(albumDatas)
+        binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
+        binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        albumRVAdapter.setMyItemClickListener(object:AlbumRVAdapter.MyItemClickListener{
+            override fun onItemClick(album: Album) {
+                changeAlbumFragment(album)
+            }
+        })
+
 
         val bannerAdapter = BannerVPAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))    //이미지 리소스 id값 넘기기
@@ -76,6 +97,18 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         return binding.root
+    }
+
+    private fun changeAlbumFragment(album: Album) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val albumJson = gson.toJson(album)
+                    putString("album", albumJson)
+                }
+            })
+            .commitAllowingStateLoss()
     }
 
     private fun startAutoSlide(adapter : PannerVPAdapter){

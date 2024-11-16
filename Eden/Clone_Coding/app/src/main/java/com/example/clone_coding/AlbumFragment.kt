@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.clone_coding.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 
 class AlbumFragment() : Fragment() {
     lateinit var binding: FragmentAlbumBinding
-
+    private var gson: Gson = Gson()
     private var information = arrayListOf("수록곡", "상세정보", "영상")
 
 
@@ -21,23 +22,28 @@ class AlbumFragment() : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
-        // Bundle에서 데이터 가져오기
-        val albumTitle = arguments?.getString("albumTitle")
-        val singer = arguments?.getString("singer")
-        val info = arguments?.getString("info")
-        val img = arguments?.getInt("img")
+        //앨범 데이터 받아오기
+        val albumJson = arguments?.getString("album")
+        val album = gson.fromJson(albumJson, Album::class.java)
+        setInit(album)
 
-        // UI에 데이터 설정
-        binding.albumMusicTitleTv.text = albumTitle
-        binding.albumSingerNameTv.text = singer
-        binding.albumMusicTitleInfoTv.text = info
-
-        // ImageView에 이미지 리소스를 설정
-        img?.let {
-            if (it != 0) {
-                binding.albumAlbumIv.setImageResource(it)
-            }
-        }
+//        // Bundle에서 데이터 가져오기
+//        val albumTitle = arguments?.getString("albumTitle")
+//        val singer = arguments?.getString("singer")
+//        val info = arguments?.getString("info")
+//        val img = arguments?.getInt("img")
+//
+//        // UI에 데이터 설정
+//        binding.albumMusicTitleTv.text = albumTitle
+//        binding.albumSingerNameTv.text = singer
+//        binding.albumMusicTitleInfoTv.text = info
+//
+//        // ImageView에 이미지 리소스를 설정
+//        img?.let {
+//            if (it != 0) {
+//                binding.albumAlbumIv.setImageResource(it)
+//            }
+//        }
 
         //뒤로가기 버튼 액션
         binding.albumBackIv.setOnClickListener {
@@ -56,6 +62,13 @@ class AlbumFragment() : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun setInit(album: Album) {
+        binding.albumAlbumIv.setImageResource(album.coverimg!!)
+        binding.albumMusicTitleTv.text = album.title.toString()
+        binding.albumSingerNameTv.text = album.singer.toString()
+
     }
 
 
