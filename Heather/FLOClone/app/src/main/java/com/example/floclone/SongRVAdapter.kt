@@ -43,6 +43,14 @@ class SongRVAdapter(private val songs: ArrayList<Song>) :
                 mItemClickListener.onRemoveSong(adapterPosition)
             }
 
+            // 스위치 상태 설정
+            binding.itemSongSwitch.isChecked = song.isSwitchOn
+
+            // 스위치 상태 변경 리스너
+            binding.itemSongSwitch.setOnCheckedChangeListener { _, isChecked ->
+                song.isSwitchOn = isChecked
+            }
+
         }
     }
 
