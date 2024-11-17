@@ -12,6 +12,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>) :
     interface MyItemClickListener{
         fun onItemClick(album: Album)
         fun onRemoveAlbum(position: Int)
+        fun onPlayAlbum(album: Album)  // 오늘 발매 음악에서 재생 버튼 클릭 시 호출될 메서드
     }
 
     // 리스너 객체를 전달받는 함수랑 리스너 객체를 저장할 변수
@@ -57,6 +58,11 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>) :
             binding.itemAlbumTitleTv.text = album.title
             binding.itemAlbumSingerTv.text = album.singer
             binding.itemAlbumCoverImgIv.setImageResource(album.coverImg!!)
+
+            // 재생 버튼 클릭 리스너 추가
+            binding.itemAlbumPlayImgIv.setOnClickListener {
+                mItemClickListener.onPlayAlbum(album)
+            }
         }
     }
 }
