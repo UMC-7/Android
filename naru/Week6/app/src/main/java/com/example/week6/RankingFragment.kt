@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.week6.databinding.FragmentRankingBinding
+import com.google.gson.Gson
 
 class RankingFragment : Fragment() {
 
@@ -51,5 +52,23 @@ class RankingFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 3) // 3열 레이아웃
             adapter = productRVAdapter
         }
+
+        productRVAdapter.setMyItemClickListener(object: ProductRVAdapter.MyItemClickListener {
+            override fun onItemCLick(product: Product) {
+                changeProductFragment(product)
+            }
+        })
+    }
+
+    private fun changeProductFragment(product: Product) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, ProductFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val productJson = gson.toJson(product)
+                    putString("product", productJson)
+                }
+            })
+            .commitAllowingStateLoss()
     }
 }

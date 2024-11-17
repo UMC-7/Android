@@ -8,6 +8,15 @@ import com.example.week6.databinding.ItemProductBinding
 
 class ProductRVAdapter(private val productList: List<Product>): RecyclerView.Adapter<ProductRVAdapter.ViewHolder>() {
 
+    interface MyItemClickListener {
+        fun onItemCLick(product: Product)
+    }
+
+    private lateinit var myItemClickListener: MyItemClickListener
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
+        myItemClickListener = itemClickListener
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ProductRVAdapter.ViewHolder {
         val binding: ItemProductBinding = ItemProductBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
@@ -16,6 +25,10 @@ class ProductRVAdapter(private val productList: List<Product>): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ProductRVAdapter.ViewHolder, position: Int) {
         holder.bind(productList[position])
+
+        holder.itemView.setOnClickListener {
+            myItemClickListener.onItemCLick(productList[position])
+        }
     }
 
     override fun getItemCount(): Int = productList.size
