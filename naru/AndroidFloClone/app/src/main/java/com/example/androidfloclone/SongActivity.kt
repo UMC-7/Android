@@ -1,10 +1,13 @@
 package com.example.androidfloclone
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidfloclone.databinding.ActivitySongBinding
 import com.google.gson.Gson
@@ -41,9 +44,11 @@ class SongActivity : AppCompatActivity() {
 
         binding.songMiniplayerIv.setOnClickListener {
             setPlayerStatus(true)
+            startStopService()
         }
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(false)
+            startStopService()
         }
 
         // 랜덤 재생 버튼 이미지 변경
@@ -191,5 +196,35 @@ class SongActivity : AppCompatActivity() {
         timer.interrupt()
         mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제
         mediaPlayer = null // 미디어 플레이어 해제
+    }
+
+    private fun startStopService() {
+        if (isServiceRunning(MusicService::class.java)) { // 서비스가 실행 중인지 확인
+            Toast.makeText(this, "Foreground Service Stopped", Toast.LENGTH_SHORT).show()
+            val stopped = stopService(Intent(this, MusicService::class.java))
+            if (!stopped) {
+                Toast.makeText(this, "Failed to stop Foreground Service", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "Foreground Service Started", Toast.LENGTH_SHORT).show()
+            val startedIntent = Intent(this, MusicService::class.java)
+            val started = startService(startedIntent) != null
+            if (!started) {
+                Toast.makeText(this, "Failed to start Foreground Service", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun isServiceRunning(inputClass : Class<MusicService>) : Boolean {
+        val manager : ActivityManager = getSystemService(
+            Context.ACTIVITY_SERVICE
+        ) as ActivityManager
+
+        for (service : ActivityManager.RunningServiceInfo in manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (inputClass.name.equals(service.service.className)) {
+                return true
+            }
+        }
+        return false
     }
 }
