@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.floclone.databinding.ItemAlbumBinding
 
-class AlbumRVAdapter(private val albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>(){
+class AlbumRVAdapter(private val albumList: ArrayList<Album>) :
+    RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>(){
 
     // 클릭 인터페이스 정의
     interface MyItemClickListener{
@@ -49,7 +50,8 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>) : RecyclerView.Ada
     override fun getItemCount(): Int = albumList.size
 
     // 뷰홀더
-    inner class ViewHolder(val binding: ItemAlbumBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemAlbumBinding):
+        RecyclerView.ViewHolder(binding.root){
 
         fun bind(album: Album){
             binding.itemAlbumTitleTv.text = album.title

@@ -43,6 +43,13 @@ class SavedSongFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
+        // 클릭 리스너 설정
+        songRVAdapter.setMyItemClickListener(object: SongRVAdapter.MyItemClickListener {
+            override fun onRemoveSong(position: Int) {
+                songRVAdapter.removeSong(position)
+            }
+        })
+
         return binding.root
     }
 
