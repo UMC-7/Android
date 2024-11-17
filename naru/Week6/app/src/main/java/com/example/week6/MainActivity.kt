@@ -3,6 +3,7 @@ package com.example.week6
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.week6.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
