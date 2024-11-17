@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.pokedexclone"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.pokedexclone"
