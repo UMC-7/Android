@@ -27,8 +27,6 @@ class SongActivity : AppCompatActivity() {
           initSong()
           setPlayer(song)
 
-          var repeat = false
-
           binding.songMiniplayerIv.setOnClickListener {
                setPlayerStatus(false)
           }
@@ -79,7 +77,8 @@ class SongActivity : AppCompatActivity() {
           binding.songStartTimeTv.text = String.format("%02d:%02d",song.second /60, song.second % 60)
           binding.songEndTimeTv.text = String.format("%02d:%02d",song.playTime /60, song.playTime % 60)
           binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
-          val music = resources.getIdentifier(song.music, "raw", this.packageName)
+          //val music = resources.getIdentifier(song.music, "raw", this.packageName)
+          val music = R.raw.music_lilac
           mediaPlayer = MediaPlayer.create(this,music)
 
           setPlayerStatus(song.isPlaying)

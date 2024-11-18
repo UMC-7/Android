@@ -3,15 +3,12 @@ package com.example.flo_clone_umc_bottom
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings.Global.putInt
-import android.provider.Settings.Global.putString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import me.relex.circleindicator.CircleIndicator2
 import com.example.flo_clone_umc_bottom.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 import java.util.Timer

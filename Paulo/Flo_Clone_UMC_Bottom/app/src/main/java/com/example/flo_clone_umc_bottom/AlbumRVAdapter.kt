@@ -52,4 +52,5 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
             binding.itemAlbumCoverImgIv.setImageResource(album.coverImg!!)
         }
     }
+    //6주차 AlbumRVAdapter 확인 전
 }
