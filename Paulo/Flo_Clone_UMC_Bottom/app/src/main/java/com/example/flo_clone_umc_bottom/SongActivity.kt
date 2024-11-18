@@ -79,7 +79,9 @@ class SongActivity : AppCompatActivity() {
           binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
           //val music = resources.getIdentifier(song.music, "raw", this.packageName)
           val music = R.raw.music_lilac
+          val coverImgResId = intent.getIntExtra("coverImg", R.drawable.img_album_exp2)
           mediaPlayer = MediaPlayer.create(this,music)
+          binding.songAlbumIv.setImageResource(coverImgResId)
 
           setPlayerStatus(song.isPlaying)
      }

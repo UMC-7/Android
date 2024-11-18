@@ -1,5 +1,6 @@
 package com.example.flo_clone_umc_bottom
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,18 @@ class HomeFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     lateinit var binding: FragmentHomeBinding
     private var albumDatas = ArrayList<Album>()
+    private var albumDataListener: AlbumRVAdapter.MyItemClickListener? = null
+    //6주차 데이터 전달을 위해 인터페이스를 참조하는 변수 생성
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is AlbumRVAdapter.MyItemClickListener) {
+            albumDataListener = context
+        } else {
+            albumDataListener = null
+        }
+        //6주차 AlbumRVAadpter에 MyItemClickListener가 있는지 확인
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -92,6 +105,11 @@ class HomeFragment : Fragment() {
             override fun onRemoveAlbum(position: Int) {
                 albumRVAdapter.removeItem(position)
             }
+
+            override fun onIntentAlbum(album: Album) {
+                (activity as MainActivity).updateMiniPlayer(album)
+            }
+            //6주차 미니 플레이어 업데이트
         })
 
         val bannerAdapter = BannerVPAdapter(this)

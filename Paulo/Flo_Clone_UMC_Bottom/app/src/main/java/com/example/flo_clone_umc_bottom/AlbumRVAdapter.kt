@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flo_clone_umc_bottom.databinding.ItemAlbumBinding
 
 class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
-
     interface MyItemClickListener{
         fun onItemClick(album: Album)
         fun onRemoveAlbum(position: Int)
+        fun onIntentAlbum(album: Album)
     }
 
     private lateinit var mItemClickListener: MyItemClickListener
@@ -20,6 +20,10 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
     fun addItem(album: Album){
         albumList.add(album)
         notifyDataSetChanged()
+    }
+
+    fun intentItem(position: Int){
+
     }
 
     fun removeItem(position: Int){
@@ -40,6 +44,10 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         holder.binding.itemAlbumTitleTv.setOnClickListener{
             mItemClickListener.onRemoveAlbum(position)
         }
+        holder.binding.itemAlbumPlayImgIv.setOnClickListener {
+            mItemClickListener.onIntentAlbum(albumList[position])
+        }
+        //6주차 정보 전달
     }
 
     override fun getItemCount(): Int = albumList.size
