@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private var song: Song = Song()
     private var gson: Gson = Gson()
 
-    // SongActivity에서 반환된 데이터를 처리
     private val getSongResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {  // 결과 코드가 RESULT_OK인지 확인
             // song 액티비티에서 전달한 데이터 가져옴
@@ -94,18 +93,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 미니 플레이어에 현재 노래 정보 세팅
     private fun setMiniPlayer(song: Song) {
         binding.mainMiniplayerTitleTv.text = song.title
         binding.mainMiniplayerSingerTv.text = song.singer
         binding.mainProgressSb.progress = (song.second * 100000 / song.playTime)
     }
 
-    // 앨범 정보를 받아 미니 플레이어 업데이트
     fun updateMiniPlayer(album: Album) {
-        binding.mainMiniplayerTitleTv.text = album.title
-        binding.mainMiniplayerSingerTv.text = album.singer
-        binding.mainProgressSb.progress = 0
+        // 앨범의 첫 번째 노래를 선택
+        val firstSong = album.songs?.first()
+
+        // 미니 플레이어에 앨범 정보와 첫 번째 노래 정보 업데이트
+        if (firstSong != null) {
+            binding.mainMiniplayerTitleTv.text = firstSong.title
+            binding.mainMiniplayerSingerTv.text = firstSong.singer
+        }
+        binding.mainProgressSb.progress = 0  // 프로그레스바 초기화
     }
 
     override fun onStart() {

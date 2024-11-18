@@ -49,12 +49,37 @@ class HomeFragment : Fragment() {
 
         // 데이터 리스트
         albumDatas.apply {
-            add(Album("Summer", "The Volunteers", R.drawable.img_album_exp2))
-            add(Album("Drowning", "WOODZ", R.drawable.img_album_exp4))
-            add(Album("Magnetic", "아일릿 (ILLIT)", R.drawable.img_album_exp5))
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(Album("The Volunteers", "The Volunteers", R.drawable.img_album_exp2,
+                songs = arrayListOf(
+                    Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad"),
+                    Song("PINKTOP", "The Volunteers", 0, 60, false, "music_pinktop"),
+                    Song("Let me go!", "The Volunteers", 0, 60, false, "music_letmego")
+                )))
+            add(Album("OO-LI", "WOODZ", R.drawable.img_album_exp4,
+                songs = arrayListOf(
+                    Song("Deep Deep Deep", "WOODZ", 0, 60, false, "music_deepdeepdeep"),
+                    Song("Journey", "WOODZ", 0, 60, false, "music_journey"),
+                    Song("Drowning", "WOODZ", 0, 60, false, "music_drowning")
+                )))
+            add(Album("SUPER REAL ME", "아일릿 (ILLIT)", R.drawable.img_album_exp5,
+                    songs = arrayListOf(
+                    Song("My World", "아일릿 (ILLIT)", 0, 60, false, "music_myworld"),
+                    Song("Magnetic", "아일릿 (ILLIT)", 0, 60, false, "music_magnetic"),
+                    Song("Midnight Fiction", "아일릿 (ILLIT)", 0, 60, false, "music_midnightfiction")
+                )))
+            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp,
+                songs = arrayListOf(
+                    Song("Butter", "방탄소년단 (BTS)", 0, 60, false, "music_butter"),
+                    Song("Butter (feat.Megan)", "방탄소년단 (BTS)", 0, 60, false, "music_butter_megan"),
+                )))
+            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3,
+                songs = arrayListOf(
+                    Song("Next Level", "에스파 (AESPA)", 0, 60, false, "music_nextlevel")
+                )))
+            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6,
+                songs = arrayListOf(
+                    Song("Weekend", "태연 (Tae Yeon)", 0, 60, false, "music_weekend")
+                )))
         }
 
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
