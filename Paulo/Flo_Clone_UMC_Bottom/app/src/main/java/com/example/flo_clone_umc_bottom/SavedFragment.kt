@@ -38,6 +38,24 @@ class SavedFragment:Fragment() {
             add(LockerAlbum("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
             add(LockerAlbum("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
             add(LockerAlbum("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(LockerAlbum("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(LockerAlbum("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+            add(LockerAlbum("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+            add(LockerAlbum("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+            add(LockerAlbum("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+            add(LockerAlbum("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(LockerAlbum("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(LockerAlbum("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+            add(LockerAlbum("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+            add(LockerAlbum("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+            add(LockerAlbum("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+            add(LockerAlbum("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+            add(LockerAlbum("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(LockerAlbum("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+            add(LockerAlbum("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+            add(LockerAlbum("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+            add(LockerAlbum("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+            add(LockerAlbum("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
         }
         //6주차 locker에 recyclerView 내용 추가
 
@@ -50,8 +68,14 @@ class SavedFragment:Fragment() {
             override fun onRemoveAlbum(position: Int) {
                 lockerAlbumRVAdapter.removeItem(position)
             }
+
+            //6주차 ... 누르면 없어지기
+            override fun onButtonClick(position: Int, click: Boolean) {
+                savedDatas[position].isButtonVisible = !savedDatas[position].isButtonVisible
+
+            }
         })
-        //6주차 ... 누르면 없어지기
+
 
         return binding.root
     }
