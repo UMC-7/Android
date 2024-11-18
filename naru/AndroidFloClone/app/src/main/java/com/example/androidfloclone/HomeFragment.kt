@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private var job: Job? = null // 자동 슬라이드 Job을 nullable로 변경
-    private var albumDatas = ArrayList<Album>()
+    private var albumDatas = ArrayList<Album>()  // 앨범 데이터를 저장할 ArrayList
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,15 +61,17 @@ class HomeFragment : Fragment() {
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        // 앨범 아이템 클릭 리스너 설정
         albumRVAdapter.setMyItemCLickListener(object: AlbumRVAdapter.MyItemClickListener {
+            // 앨범 아이템 클릭 시 AlbunFragment로 데이터 전달
             override fun onItemClick(album: Album) {
                 changeAlbumFragment(album)
             }
-
+            // 앨범 재생 아이콘 클릭 시 미니 플레이어 업데이트
             override fun onPlayImgClick(album: Album) {
                 changeMiniPlayer(album)
             }
-
+            // 앨범 아이템 삭제
             override fun onRemoveAlbum(position: Int) {
                 albumRVAdapter.removeItem(position)
             }
@@ -98,6 +100,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    // 앨범 클릭 시 AlbumFragment로 데이터 전달하는 메소드
     private fun changeAlbumFragment(album: Album) {
         (context as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, AlbumFragment().apply {
@@ -110,6 +113,7 @@ class HomeFragment : Fragment() {
             .commitAllowingStateLoss()
     }
 
+    // 미니 플레이어를 선택한 앨범 정보로 업데이트하는 메소드
     private fun changeMiniPlayer(album: Album) {
         (context as MainActivity).updateMiniPlayer(album)
     }

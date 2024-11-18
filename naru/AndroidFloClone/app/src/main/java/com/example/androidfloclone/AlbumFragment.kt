@@ -14,8 +14,6 @@ class AlbumFragment : Fragment() {
     private var gson: Gson = Gson()
     private val information = arrayListOf("수록곡", "상세정보", "영상")
 
-    // private var singer: String? = null  // 가수 이름을 저장할 변수
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,16 +24,6 @@ class AlbumFragment : Fragment() {
         val albumJson = arguments?.getString("album")
         val album = gson.fromJson(albumJson, Album::class.java)
         setInit(album)
-
-        /*// 전달받은 데이터 가져오기
-        arguments?.let {
-            singer = it.getString("singer") ?: "Unknown Singer"
-            val albumName = it.getString("albumName") ?: "Unknown Album"
-
-            // 텍스트뷰애 앨범이름과 가수 설정
-            binding.albumMusicTitleTv.text = albumName
-            binding.albumSingerNameTv.text = singer
-        }*/
 
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
