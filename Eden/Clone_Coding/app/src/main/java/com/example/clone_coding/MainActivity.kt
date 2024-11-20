@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private var song : Song = Song()
     private var gson : Gson = Gson()
+    private var albumCoverimg : Int = 0
 
     private val getResultText = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -25,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         if(result.resultCode == Activity.RESULT_OK){
             val returnString = result.data?.getStringExtra("title")
             Toast.makeText(this, returnString, Toast.LENGTH_SHORT).show()
-
-            Log.d("title", "Received result data: $returnString")
         }
     }
 
@@ -50,19 +49,23 @@ class MainActivity : AppCompatActivity() {
 
         // 플레이어 띄울 때 데이터 전달
         binding.mainPlayerCl.setOnClickListener {
-            val intent = Intent(this, SongActivity::class.java)
-            intent.putExtra("title", song.title)
-            intent.putExtra("singer", song.singer)
-            intent.putExtra("currentTime", song.currentTime)
-            intent.putExtra("playTime", song.playTime)
-            intent.putExtra("isPlaying", song.isPlaying)
-            intent.putExtra("music", song.music)
+            // JSON 데이터 전달로 방식 변경
+            val gson = Gson()
+            val songJson = gson.toJson(song)
 
-            getResultText.launch(intent)
+            val intent = Intent(this, SongActivity::class.java)
+
+            intent.putExtra("song_player", songJson)
+
+            intent.putExtra("album_img", albumCoverimg)
+
+            try {
+                getResultText.launch(intent)
+            } catch (e: Exception) {
+                Log.e("DEBUG_LOG2", "getResultText.launch 호출 중 오류 발생: ${e.message}")
+            }
         }
     }
-
-
 
     private fun initBottomNavigation(){
 
@@ -123,6 +126,16 @@ class MainActivity : AppCompatActivity() {
         setMiniPlayer(song)
     }
 
+    fun setNewSong(newSong: Song){
+        song = newSong
+        setMiniPlayer(song)
+    }
+    fun getSong(): String {
+        return song.title
+    }
 
+    fun setAlbumcover(resImg : Int){
+        albumCoverimg = resImg
+    }
 
 }

@@ -3,20 +3,15 @@ package com.example.clone_coding
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.clone_coding.databinding.ActivitySongBinding
 import com.google.gson.Gson
 import java.util.Locale
-import java.util.Timer
 
 class SongActivity : AppCompatActivity() {
 
@@ -81,14 +76,15 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(false)
         }
 
-        //미니플레이어에 있는 데이터 반영
-        if(intent.hasExtra("title") && intent.hasExtra("singer")){
-            binding.songMusicTitleTv.text = intent.getStringExtra("title")
-            binding.songSingerNameTv.text = intent.getStringExtra("singer")
-
+        try {
+            binding.songMusicTitleTv.text = song.title
+            binding.songSingerNameTv.text = song.singer
+            binding.songEndTimeTv.text = String.format(Locale.US, "%d:%02d", (song.playTime) / 60, (song.playTime) % 60)
+            Log.d("DEBUG_LOG2", "Song 정보가 레이아웃에 적용되었습니다.")
+        } catch (e: Exception) {
+            Log.e("DEBUG_LOG2", "레이아웃 적용 중 오류 발생: ${e.message}")
         }
-
-
+        binding.songAlbumIv.setImageResource(intent.getIntExtra("album_img", R.drawable.img_album_exp2))
     }
 
     //사용자가 포커스 잃었을 때 음악 중지
@@ -114,15 +110,12 @@ class SongActivity : AppCompatActivity() {
 
     //intent 기반 Song 객체 생성
     private fun initSong(){
-        if(intent.hasExtra("title") && intent.hasExtra("singer")){
-            song = Song(
-                intent.getStringExtra("title")!!,
-                intent.getStringExtra("singer")!!,
-                intent.getIntExtra("second", 0),
-                intent.getIntExtra("playTime",1),   //ArithmeticException 방지 임의 값
-                intent.getBooleanExtra("isPlaying", false),
-                intent.getStringExtra("music")!!
-            )
+        val songJson = intent.getStringExtra("song_player")
+        song = gson.fromJson(songJson, Song::class.java)
+
+        //기본값 설정
+        if(song.title=="Unknown"){
+            song = Song("Unknown", "Unknown Artist", 0, 1, false, "music_lilac")
         }
 
         startTimer()    //초기화와 동시에 타이머 시작
@@ -135,8 +128,7 @@ class SongActivity : AppCompatActivity() {
         binding.songStartTimeTv.text = String.format(Locale.US, "%02d:%02d", song.currentTime/60, song.currentTime%60)
         binding.songEndTimeTv.text = String.format(Locale.US, "%02d:%02d", song.playTime/60, song.playTime%60)
         binding.songProgressSb.progress = (song.currentTime*100000/song.playTime)  //Seekbar의 max 값 100000
-        val music = R.raw.music_lilac
-        mediaPlayer = MediaPlayer.create(this, music)
+        mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(song.music, "raw", packageName))
 
         setPlayerStatus(song.isPlaying)
     }

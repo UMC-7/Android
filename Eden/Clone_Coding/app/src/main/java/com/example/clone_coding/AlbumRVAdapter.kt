@@ -8,11 +8,13 @@ import com.example.clone_coding.databinding.ItemAlbumBinding
 class AlbumRVAdapter(private val albumList : ArrayList<Album>):RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
+        //외부에서 오는 클릭을 처리하기 위한 인터페이스
         fun onItemClick(album: Album)
+        fun onPlayClick(album: Album)
     }
 
-    private lateinit var myItemClickListener: MyItemClickListener
-    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+    private lateinit var myItemClickListener: MyItemClickListener   //전달받은 리스너 저장할 변수
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){ //리스너 전달받을 함수
         myItemClickListener = itemClickListener
     }
 
@@ -27,7 +29,9 @@ class AlbumRVAdapter(private val albumList : ArrayList<Album>):RecyclerView.Adap
         holder.itemView.setOnClickListener{
             myItemClickListener.onItemClick(albumList[position])
         }
-
+        holder.binding.itemAlbumPlayImgIv.setOnClickListener {
+            myItemClickListener.onPlayClick(albumList[position])
+        }
     }
 
     override fun getItemCount(): Int = albumList.size

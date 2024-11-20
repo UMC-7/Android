@@ -58,8 +58,10 @@ class HomeFragment : Fragment() {
 
         //더미 데이터
         albumDatas.apply {
-            add(Album("Lilac", "아이유(IU)", R.drawable.img_album_exp2))
-            add(Album("엄", "헌준타워", R.drawable.img_album_phj))
+            add(Album("라일락", "아이유(IU)", R.drawable.img_album_exp2,
+                ArrayList<Song>().apply{add(Song("라일락", "아이유", 0, 215, false, "music_lilac"))}))
+            add(Album("엄", "헌준타워", R.drawable.img_album_phj,
+                ArrayList<Song>().apply{add(Song("한 페이지가 될 수 있게", "두둥탁", 0, 206, false, "music_page"))}))
             add(Album("Next Level", "에스파", R.drawable.img_album_exp3))
             add(Album("Boy with Luv", "방탄소년단(BTS)", R.drawable.img_album_exp4))
             add(Album("Weekend", "태연", R.drawable.img_album_exp6))
@@ -73,8 +75,11 @@ class HomeFragment : Fragment() {
             override fun onItemClick(album: Album) {
                 changeAlbumFragment(album)
             }
-        })
 
+            override fun onPlayClick(album: Album) {
+                playAlbum(album)
+            }
+        })
 
         val bannerAdapter = BannerVPAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))    //이미지 리소스 id값 넘기기
@@ -84,6 +89,13 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         return binding.root
+    }
+
+    private fun playAlbum(album: Album) {
+        val mainActivity = requireActivity() as MainActivity
+
+        mainActivity.setNewSong(album.songs?.get(0) ?: Song("Unknown", "Unknown Artist"))
+        mainActivity.setAlbumcover(album.coverimg!!)
     }
 
     private fun changeAlbumFragment(album: Album) {

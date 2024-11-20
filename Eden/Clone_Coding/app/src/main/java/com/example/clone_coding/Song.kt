@@ -5,7 +5,7 @@ data class Song(
     val title : String = "",
     val singer : String = "",
     var currentTime : Int = 0,
-    var playTime : Int =0,
+    var playTime : Int =1,  //ArithmeticException 방지
     var isPlaying : Boolean = false,
     var music : String = ""
 )
