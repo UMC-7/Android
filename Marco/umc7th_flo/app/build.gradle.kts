@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("me.relex:circleindicator:2.1.6")    // ViewPager용 CircleIndicator
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
