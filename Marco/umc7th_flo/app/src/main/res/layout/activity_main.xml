@@ -39,7 +39,7 @@
                 android:id="@+id/main_miniplayer_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="라일락"
+                android:text="라일락인줄알았지"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
@@ -47,7 +47,7 @@
                 android:id="@+id/main_miniplayer_singer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아이유 (IU)"
+                android:text="아이유 (IU) 였던것"
                 android:textSize="12sp" />
 
         </LinearLayout>

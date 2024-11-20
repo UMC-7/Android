@@ -1,5 +1,6 @@
 package com.example.umc7th_flo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -16,12 +17,17 @@ class SongActivity : AppCompatActivity() {
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // MainActivity에서 전달받은 값 받아서 반영
         if(intent.hasExtra("title") && intent.hasExtra("singer")){
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
         }
 
+        // MainActivity로 앨범 텍스트 전달
         binding.songDownIb.setOnClickListener {
+            val intent2 = Intent(this, MainActivity::class.java)
+            intent2.putExtra("title", intent.getStringExtra("title"))
+            setResult(RESULT_OK, intent2)
             finish()
         }
 
