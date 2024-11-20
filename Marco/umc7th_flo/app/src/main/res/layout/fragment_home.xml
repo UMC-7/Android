@@ -187,7 +187,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:text="종합"
-            android:textColor="#3F3FFF"
+            android:textColor="@color/select_color"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/home_today_music_domestic_tv"
             app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv" />
