@@ -34,9 +34,28 @@ class SongActivity : AppCompatActivity() {
         binding.songMiniplayerIv.setOnClickListener {
             setPlayerStatus(false)
         }
-
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(true)
+        }
+
+        // 반복재생 사진 변경
+        binding.songRepeatIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.GONE
+            binding.songRepeatOnIv.visibility = View.VISIBLE
+        }
+        binding.songRepeatOnIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.VISIBLE
+            binding.songRepeatOnIv.visibility = View.GONE
+        }
+
+        // 랜덤재생 사진 변경
+        binding.songRandomIv.setOnClickListener {
+            binding.songRandomIv.visibility = View.GONE
+            binding.songRandomOnIv.visibility = View.VISIBLE
+        }
+        binding.songRandomOnIv.setOnClickListener {
+            binding.songRandomIv.visibility = View.VISIBLE
+            binding.songRandomOnIv.visibility = View.GONE
         }
 
 
