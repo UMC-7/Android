@@ -14,8 +14,15 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.homeAlbumImgIv1.setOnClickListener {
+            // fragment to fragment 전환
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm , AlbumFragment())
+                .commitAllowingStateLoss()
+        }
 
         return binding.root
     }
