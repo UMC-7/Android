@@ -18,6 +18,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SongActivity::class.java))
         }
         initBottomNavigation()
+
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
+
+        binding.mainPlayerCl.setOnClickListener {
+            val intent = Intent(this,SongActivity::class.java)
+            intent.putExtra("title", song.title)
+            intent.putExtra("singer",song.singer)
+            startActivity(intent)
+        }
     }
 
     private fun initBottomNavigation(){
