@@ -19,10 +19,27 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeAlbumImgIv1.setOnClickListener {
-            // fragment to fragment 전환
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm , AlbumFragment())
-                .commitAllowingStateLoss()
+            transferData(
+                binding.homeAlbumTitleTv1.text.toString(),
+                binding.homeAlbumSingerTv1.text.toString(),
+                R.drawable.img_album_exp2
+            )
+        }
+
+        binding.homeAlbumImgIv2.setOnClickListener {
+            transferData(
+                binding.homeAlbumTitleTv2.text.toString(),
+                binding.homeAlbumSingerTv2.text.toString(),
+                R.drawable.img_album_exp
+            )
+        }
+
+        binding.homeAlbumImgIv3.setOnClickListener {
+            transferData(
+                binding.homeAlbumTitleTv3.text.toString(),
+                binding.homeAlbumSingerTv3.text.toString(),
+                R.drawable.img_album_exp3
+            )
         }
 
         val bannerAdapter = BannerVPAdapter(this)
@@ -32,5 +49,21 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         return binding.root
+    }
+
+    // Fragment 전환하면서 데이터 전달
+    fun transferData(title : String, singer : String, imageResId: Int) {
+        val bundle = Bundle()
+
+        bundle.putString("title", title)
+        bundle.putString("singer", singer)
+        bundle.putInt("imageResId", imageResId)
+
+        val fragment = AlbumFragment()
+        fragment.arguments = bundle
+
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, fragment)
+            .commitAllowingStateLoss()
     }
 }
