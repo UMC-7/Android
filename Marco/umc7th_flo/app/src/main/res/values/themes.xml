@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.Umc7th_flo" parent="Base.Theme.Umc7th_flo" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_flo_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Umc7th_flo</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+    </style>
 </resources>
