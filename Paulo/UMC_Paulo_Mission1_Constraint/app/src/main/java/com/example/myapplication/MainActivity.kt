@@ -1,17 +1,24 @@
 package com.example.myapplication
 
 import android.app.Activity
+import android.app.FragmentContainer
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+    var position = 2
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,31 +27,85 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentcon) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomnav.setupWithNavController(navController)
+
+
+
+        binding.bottomnav.setOnItemSelectedListener { item ->
+            val navOptionsLeftToRight = NavOptions.Builder()
+                .setEnterAnim(R.anim.to_right)
+                .setExitAnim(R.anim.from_right)
+                .setPopEnterAnim(R.anim.to_left)
+                .setPopExitAnim(R.anim.from_left)
+                .build()
+
+            val navOptionsRightToLeft = NavOptions.Builder()
+                .setEnterAnim(R.anim.to_left)
+                .setExitAnim(R.anim.from_left)
+                .setPopEnterAnim(R.anim.to_right)
+                .setPopExitAnim(R.anim.from_right)
+                .build()
+
+
+
+            when (item.itemId) {
+                R.id.item_timer_img -> {
+                    if(position < 4) {
+                        navController.navigate(R.id.item_timer_img, null,navOptionsLeftToRight)
+                    }
+                    else if(position > 4){
+
+                    }
+                    position = 4
+                    true
+                }
+
+                R.id.item_search_img -> {
+                    if(position < 1) {
+
+                    }
+                    else if(position > 1) {
+                        navController.navigate(R.id.item_search_img, null, navOptionsRightToLeft)
+                    }
+                    position = 1
+                    true
+                }
+
+                R.id.item_home_img -> {
+                    if(position > 2) {
+                        navController.navigate(R.id.item_home_img, null, navOptionsRightToLeft)
+                    }
+                    else if(position < 2) {
+                        navController.navigate(R.id.item_home_img, null, navOptionsLeftToRight)
+                    }
+                    position = 2
+                    true
+                }
+
+                R.id.item_setting_img -> {
+                    if(position > 3) {
+                        navController.navigate(R.id.item_setting_img, null, navOptionsRightToLeft)
+                    }
+                    else if(position < 3) {
+                        navController.navigate(R.id.item_setting_img, null, navOptionsLeftToRight)
+                    }
+                    position = 3
+                    true
+                }
+                else -> false
+            }
+        }
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding.imageViewG.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
 
-        binding.imageViewP.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
-
-        binding.imageViewR.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
-
-        binding.imageViewY.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
         /*
         val imageB: ImageView = findViewById(R.id.imageViewB)
         imageB.setOnClickListener {
@@ -75,5 +136,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         */
+    }
+    fun hideBottomNavigation(state:Boolean){
+        if(state) binding.bottomnav.visibility = View.GONE else binding.bottomnav.visibility=View.VISIBLE
     }
 }
