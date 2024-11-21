@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.umc7th_flo.databinding.ActivitySongBinding
+import com.google.gson.Gson
 
 class SongActivity : AppCompatActivity() {
     //소괄호 : 클래스를 다른 클래스로 상속을 진행할 때는 소괄호를 넣어줘야 한다.
@@ -18,6 +19,7 @@ class SongActivity : AppCompatActivity() {
     lateinit var timer : Timer
 
     private var mediaPlayer : MediaPlayer?= null
+    private var gson : Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +71,14 @@ class SongActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         setPlayerStatus(false)
+
+        // 노래 진행 상황 저장 (재생시간)
+        song.second = ((binding.songProgressSb.progress * song.playTime)/100)/1000  // 밀리세컨드로 계산
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()   // 에디터 선언
+        val songJson = gson.toJson(song)    // song 객체를 json 포맷으로 변경
+        editor.putString("songData", songJson)
+        editor.apply()
     }
 
     override fun onDestroy() {
