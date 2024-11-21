@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.emo5Iv.setOnClickListener {
-            val intent = Intent(this, NextActivity::class.java)
-            intent.putExtra("id", 4)
+            val intent = Intent(this, MemoActivity::class.java)
             startActivity(intent)
         }
     }
