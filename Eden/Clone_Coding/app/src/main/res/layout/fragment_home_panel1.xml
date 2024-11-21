@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomePanel1Fragment">
+
+    <ImageView
+        android:id="@+id/home_pannel_background_iv"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:src="@drawable/img_first_album_default"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/home_pannel_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하루를 상쾌한 기분으로 \n만드는 K-POP "
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/home_pannel_btn_play_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/btn_panel_play_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_pannel_title_tv" />
+
+    <TextView
+        android:id="@+id/home_pannel_album_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 36곡 2024.10.09"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/home_pannel_album_img_iv"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"/>
+
+
+    <ImageView
+        android:id="@+id/home_pannel_album_img_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/img_album_exp"
+        app:layout_constraintBottom_toBottomOf="@id/home_pannel_background_iv"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:id="@+id/home_pannel_album_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Butter"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/home_pannel_album_singer_tv"
+        app:layout_constraintStart_toEndOf="@id/home_pannel_album_img_iv"
+        app:layout_constraintTop_toTopOf="@id/home_pannel_album_img_iv" />
+
+    <TextView
+        android:id="@+id/home_pannel_album_singer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="방탄소년단"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/home_pannel_album_img_iv"
+        app:layout_constraintStart_toEndOf="@id/home_pannel_album_img_iv"
+        app:layout_constraintTop_toBottomOf="@id/home_pannel_album_title_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
