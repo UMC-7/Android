@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 미니플레이어에 있는 제목과 가수명 SongActivity에 전달하기
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(), 0, 60, false)
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(), 0, 60, false, "music_iu_lilac")
         binding.mainPlayerCl.setOnClickListener {
             val intent = Intent(this,SongActivity::class.java)
             intent.putExtra("title", song.title)
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("second",song.second)
             intent.putExtra("playTime",song.playTime)
             intent.putExtra("isPlaying",song.isPlaying)
+            intent.putExtra("music",song.music)
             resultLauncher.launch(intent)
         }
     }
