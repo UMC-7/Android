@@ -15,6 +15,22 @@
         app:layout_constraintBottom_toTopOf="@id/main_player_cl"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <SeekBar
+        android:id="@+id/main_miniplayer_progress_sb"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:layout_marginBottom="-3dp"
+        android:progressBackgroundTint="@color/song_player_bg"
+        android:progressTint="@color/song_player"
+        android:progress="0"
+        android:max="100000"
+        android:thumb="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_player_cl" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_player_cl"
@@ -39,7 +55,7 @@
                 android:id="@+id/main_miniplayer_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="라일락인줄알았지"
+                android:text="노래명"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
@@ -47,7 +63,7 @@
                 android:id="@+id/main_miniplayer_singer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아이유 (IU) 였던것"
+                android:text="가수명"
                 android:textSize="12sp" />
 
         </LinearLayout>
