@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.umc7th_study"
+    namespace = "com.example.umc7th_flo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.umc7th_study"
+        applicationId = "com.example.umc7th_flo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -34,16 +34,15 @@ android {
         jvmTarget = "1.8"
     }
 
-    // 뷰 바인딩 설정
+    // 뷰바인딩 사용
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-    // 코루틴 의존성 추가
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation("me.relex:circleindicator:2.1.6")    // ViewPager용 CircleIndicator
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
