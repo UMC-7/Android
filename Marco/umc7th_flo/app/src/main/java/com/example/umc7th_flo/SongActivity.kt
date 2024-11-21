@@ -17,6 +17,7 @@ class SongActivity : AppCompatActivity() {
 
     lateinit var song : Song
     lateinit var timer : Timer
+    private var playOption = 0  // 반복 재생 옵션, 0 = 일반재생, 1 = 반복재생, 2 = 한곡반복재생
 
     private var mediaPlayer : MediaPlayer?= null
     private var gson : Gson = Gson()
@@ -46,14 +47,24 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(false)
         }
 
-        // 반복재생 사진 변경
+        // 반복재생 옵션 설정
         binding.songRepeatIv.setOnClickListener {
             binding.songRepeatIv.visibility = View.GONE
             binding.songRepeatOnIv.visibility = View.VISIBLE
+            binding.songRepeatOneIv.visibility = View.GONE
+            playOption = 1
         }
         binding.songRepeatOnIv.setOnClickListener {
+            binding.songRepeatIv.visibility = View.GONE
+            binding.songRepeatOnIv.visibility = View.GONE
+            binding.songRepeatOneIv.visibility = View.VISIBLE
+            playOption = 2
+        }
+        binding.songRepeatOneIv.setOnClickListener {
             binding.songRepeatIv.visibility = View.VISIBLE
             binding.songRepeatOnIv.visibility = View.GONE
+            binding.songRepeatOneIv.visibility = View.GONE
+            playOption = 0
         }
 
         // 랜덤재생 사진 변경
@@ -146,7 +157,23 @@ class SongActivity : AppCompatActivity() {
             try {
                 while (true) {
                     if (second >= playTime) {
-                        break
+                        when(playOption) {
+                            0 -> {
+                                runOnUiThread {
+                                    setPlayerStatus(false)
+                                }
+                                break
+                            }
+                            1, 2 -> {
+                                mediaPlayer?.seekTo(0)
+                                second = 0
+                                mills = 0f
+                                runOnUiThread {
+                                    binding.songProgressSb.progress = 0
+                                    binding.songStartTimeTv.text = "00:00"
+                                }
+                            }
+                        }
                     }
                     if (isPlaying) {
                         sleep(50)
