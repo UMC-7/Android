@@ -41,6 +41,9 @@ android {
 }
 
 dependencies {
+    // 코루틴 의존성 추가
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
