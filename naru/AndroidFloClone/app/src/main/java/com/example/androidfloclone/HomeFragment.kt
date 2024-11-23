@@ -57,8 +57,8 @@ class HomeFragment : Fragment() {
                 )))
             add(Album("OO-LI", "WOODZ", R.drawable.img_album_exp4,
                 songs = arrayListOf(
-                    Song("Deep Deep Deep", "WOODZ", 0, 60, false, "music_deepdeepdeep"),
                     Song("Journey", "WOODZ", 0, 60, false, "music_journey"),
+                    Song("Deep Deep Sleep", "WOODZ", 0, 60, false, "music_deepdeepsleep"),
                     Song("Drowning", "WOODZ", 0, 60, false, "music_drowning")
                 )))
             add(Album("SUPER REAL ME", "아일릿 (ILLIT)", R.drawable.img_album_exp5,
