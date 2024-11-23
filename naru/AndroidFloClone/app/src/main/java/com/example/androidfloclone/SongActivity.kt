@@ -13,11 +13,9 @@ import com.example.androidfloclone.databinding.ActivitySongBinding
 import com.google.gson.Gson
 
 class SongActivity : AppCompatActivity() {
-
     lateinit var binding: ActivitySongBinding
     lateinit var timer: Timer
     private var mediaPlayer: MediaPlayer? = null
-    private var gson: Gson = Gson()
 
     val songs = arrayListOf<Song>()
     lateinit var songDB: SongDatabase
@@ -30,18 +28,17 @@ class SongActivity : AppCompatActivity() {
 
         initPlayList()
         initSong()
+        initClickListener()
+    }
 
+    private fun initPlayList() {
+        songDB = SongDatabase.getInstance(this)!!
+        songs.addAll(songDB.songDao().getSongs())
+    }
+
+    private fun initClickListener() {
         // 버튼 클릭 시 제목 전달하고 액티비티 종료
         binding.songDownIb.setOnClickListener {
-            // 제목을 텍스트뷰에서 가져옴
-            val songTitle = binding.songMusicTitleTv.text.toString()
-
-            // 결과를 담을 intent 생성
-            val intent = Intent().apply {
-                putExtra("SONG_TITLE", songTitle) // 제목을 intent에 추가
-            }
-            // 결과를 RESULT_OK와 설정하고 액티비티 종료
-            setResult(RESULT_OK, intent)
             finish()
         }
 
@@ -80,30 +77,43 @@ class SongActivity : AppCompatActivity() {
             binding.songRepeatActiveIv.visibility = View.GONE
             binding.songRepeatOneIv.visibility = View.GONE
         }
-    }
 
-    private fun initPlayList() {
-        songDB = SongDatabase.getInstance(this)!!
-        songs.addAll(songDB.songDao().getSongs())
+        binding.songNextIv.setOnClickListener {
+            moveSong(+1)
+        }
+        binding.songPreviousIv.setOnClickListener {
+            moveSong(-1)
+        }
     }
 
     private fun initSong() {
-        /*if(intent.hasExtra("title") && intent.hasExtra("singer")) {
-            song = Song(
-                intent.getStringExtra("title")!!,
-                intent.getStringExtra("singer")!!,
-                intent.getIntExtra("second", 0),
-                intent.getIntExtra("playTime", 0),
-                intent.getBooleanExtra("isPlaying", false),
-                intent.getStringExtra("music")!!
-            )
-        }*/
         val spf = getSharedPreferences("song", MODE_PRIVATE)
         val songId = spf.getInt("songId", 0)
         nowPos = getPlayingSongPosition(songId)
 
         Log.d("now Song ID", songs[nowPos].id.toString())
         startTimer()
+        setPlayer(songs[nowPos])
+    }
+
+    private fun moveSong(direct: Int) {
+        if (nowPos + direct < 0) {
+            Toast.makeText(this, "first song", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (nowPos + direct >= songs.size) {
+            Toast.makeText(this, "Last song", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        nowPos += direct
+
+        timer.interrupt()
+        startTimer()
+
+        mediaPlayer?.release()
+        mediaPlayer = null
+
         setPlayer(songs[nowPos])
     }
 
@@ -123,8 +133,10 @@ class SongActivity : AppCompatActivity() {
         binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime / 60, song.playTime % 60)
         binding.songAlbumIv.setImageResource(song.coverImg!!)
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
+
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this, music)
+
         setPlayerStatus(song.isPlaying)
     }
 
