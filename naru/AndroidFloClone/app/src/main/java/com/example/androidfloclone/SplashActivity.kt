@@ -22,6 +22,7 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
+            finish() // 스플래시 액티비티 종료
         }, 2000)
     }
 }
