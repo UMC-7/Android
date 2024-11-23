@@ -14,6 +14,7 @@ import com.google.gson.Gson
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
     private var song: Song = Song()
     private var gson: Gson = Gson()
 
@@ -22,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        inputDummySongs()
+
         binding.mainPlayerCl.setOnClickListener {
-            // 제목을 텍스트뷰에서 가져옴
+            /*// 제목을 텍스트뷰에서 가져옴
             val songTitle = binding.mainMiniplayerTitleTv.text.toString()
             val songSinger = binding.mainMiniplayerSingerTv.text.toString()
 
@@ -35,9 +38,16 @@ class MainActivity : AppCompatActivity() {
                 putExtra("playTime", song.playTime)
                 putExtra("isPlaying", song.isPlaying)
                 putExtra("music", song.music)
-            }
+            }*/
+
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", song.id)
+            editor.apply()
+
+            val intent = Intent(this, SongActivity::class.java)
             // SongActivity 시작
             startActivity(intent)
+
         }
 
         initBottomNavigation()
@@ -105,14 +115,56 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        /*val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val jsonToSong = sharedPreferences.getString("songData", null)
 
         song = if(jsonToSong == null) { // 최초 실행 시
             Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad")
         } else { // SongActivity에서 노래가 한번이라도 pause 된 경우
             gson.fromJson(jsonToSong, Song::class.java)
+        }*/
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val songId = sharedPreferences.getInt("songId", 0)
+
+        val songDB = SongDatabase.getInstance(this)!!
+
+        song = if (songId == 0){
+            songDB.songDao().getSong(1)
+        } else{
+            songDB.songDao().getSong(songId)
         }
+
+        Log.d("song ID", song.id.toString())
+
         setMiniPlayer(song)
     }
+
+    private fun inputDummySongs() {
+        val songDB = SongDatabase.getInstance(this)!!
+        val songs = songDB.songDao().getSongs()
+
+        if (songs.isNotEmpty()) return
+
+        songDB.songDao().insert(
+            Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad", R.drawable.img_album_exp2, false)
+        )
+        songDB.songDao().insert(
+            Song("Journey", "WOODZ", 0, 60, false, "music_journey", R.drawable.img_album_exp4, false)
+        )
+        songDB.songDao().insert(
+            Song("My World", "아일릿 (ILLIT)", 0, 60, false, "music_myworld", R.drawable.img_album_exp5, false)
+        )
+        songDB.songDao().insert(
+            Song("Butter", "방탄소년단 (BTS)", 0, 60, false, "music_butter", R.drawable.img_album_exp, false)
+        )
+        songDB.songDao().insert(
+            Song("Next Level", "에스파 (AESPA)", 0, 60, false, "music_nextlevel", R.drawable.img_album_exp3, false)
+        )
+        songDB.songDao().insert(
+            Song("Weekend", "태연 (Tae Yeon)", 0, 60, false, "music_weekend", R.drawable.img_album_exp6, false)
+        )
+        val songDBData = songDB.songDao().getSongs()
+        Log.d("DB data", songDBData.toString())
+    }
+
 }

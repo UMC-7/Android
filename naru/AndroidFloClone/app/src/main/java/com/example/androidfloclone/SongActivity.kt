@@ -15,18 +15,21 @@ import com.google.gson.Gson
 class SongActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySongBinding
-    lateinit var song: Song
     lateinit var timer: Timer
     private var mediaPlayer: MediaPlayer? = null
     private var gson: Gson = Gson()
+
+    val songs = arrayListOf<Song>()
+    lateinit var songDB: SongDatabase
+    var nowPos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initPlayList()
         initSong()
-        setPlayer(song)
 
         // 버튼 클릭 시 제목 전달하고 액티비티 종료
         binding.songDownIb.setOnClickListener {
@@ -79,10 +82,13 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-
+    private fun initPlayList() {
+        songDB = SongDatabase.getInstance(this)!!
+        songs.addAll(songDB.songDao().getSongs())
+    }
 
     private fun initSong() {
-        if(intent.hasExtra("title") && intent.hasExtra("singer")) {
+        /*if(intent.hasExtra("title") && intent.hasExtra("singer")) {
             song = Song(
                 intent.getStringExtra("title")!!,
                 intent.getStringExtra("singer")!!,
@@ -91,15 +97,31 @@ class SongActivity : AppCompatActivity() {
                 intent.getBooleanExtra("isPlaying", false),
                 intent.getStringExtra("music")!!
             )
-        }
+        }*/
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val songId = spf.getInt("songId", 0)
+        nowPos = getPlayingSongPosition(songId)
+
+        Log.d("now Song ID", songs[nowPos].id.toString())
         startTimer()
+        setPlayer(songs[nowPos])
+    }
+
+    private fun getPlayingSongPosition(songId: Int): Int {
+        for (i in 0 until songs.size) {
+            if (songs[i].id == songId) {
+                return 1
+            }
+        }
+        return 0
     }
 
     private fun setPlayer(song: Song) {
-        binding.songMusicTitleTv.text = intent.getStringExtra("title")
-        binding.songSingerNameTv.text = intent.getStringExtra("singer")
+        binding.songMusicTitleTv.text = song.title
+        binding.songSingerNameTv.text = song.singer
         binding.songStartTimeTv.text = String.format("%02d:%02d", song.second / 60, song.second % 60)
         binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime / 60, song.playTime % 60)
+        binding.songAlbumIv.setImageResource(song.coverImg!!)
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this, music)
@@ -108,7 +130,7 @@ class SongActivity : AppCompatActivity() {
 
     // 플레이 상태를 설정하는 함수
     fun setPlayerStatus(isPlaying : Boolean) {
-        song.isPlaying = isPlaying
+        songs[nowPos].isPlaying = isPlaying
         timer.isPlaying = isPlaying
 
         if (isPlaying) {
@@ -126,7 +148,7 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        timer = Timer(song.playTime, song.isPlaying)
+        timer = Timer(songs[nowPos].playTime, songs[nowPos].isPlaying)
         timer.start()
     }
 
@@ -184,11 +206,10 @@ class SongActivity : AppCompatActivity() {
         super.onPause()
         setPlayerStatus(false)
 
-        song.second = ((binding.songProgressSb.progress * song.playTime)/100)/1000
+        songs[nowPos].second = ((binding.songProgressSb.progress * songs[nowPos].playTime)/100)/1000
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        val songJson = gson.toJson(song)
-        editor.putString("songData", songJson)
+        editor.putInt("songId", songs[nowPos].id)
         editor.apply()
     }
     override fun onDestroy() {
