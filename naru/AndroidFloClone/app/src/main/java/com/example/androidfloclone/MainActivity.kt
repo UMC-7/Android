@@ -26,20 +26,6 @@ class MainActivity : AppCompatActivity() {
         inputDummySongs()
 
         binding.mainPlayerCl.setOnClickListener {
-            /*// 제목을 텍스트뷰에서 가져옴
-            val songTitle = binding.mainMiniplayerTitleTv.text.toString()
-            val songSinger = binding.mainMiniplayerSingerTv.text.toString()
-
-            // SongActivity로 이동하는 Intent 생성
-            val intent = Intent(this, SongActivity::class.java).apply {
-                putExtra("title", songTitle)
-                putExtra("singer", songSinger)
-                putExtra("second", song.second)
-                putExtra("playTime", song.playTime)
-                putExtra("isPlaying", song.isPlaying)
-                putExtra("music", song.music)
-            }*/
-
             val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
             editor.putInt("songId", song.id)
             editor.apply()
@@ -47,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             // SongActivity 시작
             startActivity(intent)
-
         }
 
         initBottomNavigation()
@@ -115,14 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        /*val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
-        val jsonToSong = sharedPreferences.getString("songData", null)
 
-        song = if(jsonToSong == null) { // 최초 실행 시
-            Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad")
-        } else { // SongActivity에서 노래가 한번이라도 pause 된 경우
-            gson.fromJson(jsonToSong, Song::class.java)
-        }*/
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val songId = sharedPreferences.getInt("songId", 0)
 
