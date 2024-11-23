@@ -91,7 +91,6 @@ class SongActivity : AppCompatActivity() {
         val songId = spf.getInt("songId", 0)
         nowPos = getPlayingSongPosition(songId)
 
-        Log.d("now Song ID", songs[nowPos].id.toString())
         startTimer()
         setPlayer(songs[nowPos])
     }
@@ -120,7 +119,7 @@ class SongActivity : AppCompatActivity() {
     private fun getPlayingSongPosition(songId: Int): Int {
         for (i in 0 until songs.size) {
             if (songs[i].id == songId) {
-                return 1
+                return i
             }
         }
         return 0
