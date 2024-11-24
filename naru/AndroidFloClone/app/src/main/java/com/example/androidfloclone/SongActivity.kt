@@ -43,11 +43,11 @@ class SongActivity : AppCompatActivity() {
 
         binding.songMiniplayerIv.setOnClickListener {
             setPlayerStatus(true)
-            startStopService()
+            // startStopService()
         }
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(false)
-            startStopService()
+            // startStopService()
         }
 
         // 랜덤 재생 버튼 이미지 변경
@@ -237,7 +237,7 @@ class SongActivity : AppCompatActivity() {
     // 사용자가 포커스를 잃었을 때 음악이 중지
     override fun onPause() {
         super.onPause()
-        startStopService()
+        // startStopService()
         setPlayerStatus(false)
 
         songs[nowPos].isPlaying = false
@@ -256,7 +256,7 @@ class SongActivity : AppCompatActivity() {
         mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제
         mediaPlayer = null // 미디어 플레이어 해제
     }
-
+/*
     private fun startStopService() {
         if (isServiceRunning(MusicService::class.java)) { // 서비스가 실행 중인지 확인
             Toast.makeText(this, "Foreground Service Stopped", Toast.LENGTH_SHORT).show()
@@ -286,4 +286,5 @@ class SongActivity : AppCompatActivity() {
         }
         return false
     }
+*/
 }
