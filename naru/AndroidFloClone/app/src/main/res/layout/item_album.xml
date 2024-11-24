@@ -55,6 +55,8 @@
         android:text="The Volunteers"
         android:textColor="#a8a8a8"
         android:textSize="12sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="@id/item_album_cover_img_cardView"
         app:layout_constraintTop_toBottomOf="@id/item_album_title_tv" />
 

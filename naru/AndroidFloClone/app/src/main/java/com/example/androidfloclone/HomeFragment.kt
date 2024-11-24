@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var job: Job? = null // 자동 슬라이드 Job을 nullable로 변경
     private var albumDatas = ArrayList<Album>()  // 앨범 데이터를 저장할 ArrayList
+    private lateinit var songDB: SongDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,62 +31,15 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        /*// 앨범 이미지 클릭 시 AlbumFragment로 이동하며 데이터 전달
-        binding.homeAlbumImgIv1.setOnClickListener {
-            val singer = binding.homeAlbumSingerTv.text.toString()
-            val albumName = binding.homeAlbumNameTv.text.toString()
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
 
-            val albumFragment = AlbumFragment().apply {
-                arguments = Bundle().apply {
-                    putString("singer", singer)
-                    putString("albumName", albumName)
-                }
-            }
-
-            (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, albumFragment)
-                .commitAllowingStateLoss()
-        }*/
-
-        // 데이터 리스트
-        albumDatas.apply {
-            add(Album("The Volunteers", "The Volunteers", R.drawable.img_album_exp2,
-                songs = arrayListOf(
-                    Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad"),
-                    Song("PINKTOP", "The Volunteers", 0, 60, false, "music_pinktop"),
-                    Song("Let me go!", "The Volunteers", 0, 60, false, "music_letmego")
-                )))
-            add(Album("OO-LI", "WOODZ", R.drawable.img_album_exp4,
-                songs = arrayListOf(
-                    Song("Journey", "WOODZ", 0, 60, false, "music_journey"),
-                    Song("Deep Deep Sleep", "WOODZ", 0, 60, false, "music_deepdeepsleep"),
-                    Song("Drowning", "WOODZ", 0, 60, false, "music_drowning")
-                )))
-            add(Album("SUPER REAL ME", "아일릿 (ILLIT)", R.drawable.img_album_exp5,
-                    songs = arrayListOf(
-                    Song("My World", "아일릿 (ILLIT)", 0, 60, false, "music_myworld"),
-                    Song("Magnetic", "아일릿 (ILLIT)", 0, 60, false, "music_magnetic"),
-                    Song("Midnight Fiction", "아일릿 (ILLIT)", 0, 60, false, "music_midnightfiction")
-                )))
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp,
-                songs = arrayListOf(
-                    Song("Butter", "방탄소년단 (BTS)", 0, 60, false, "music_butter"),
-                    Song("Butter (feat.Megan)", "방탄소년단 (BTS)", 0, 60, false, "music_butter_megan"),
-                )))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3,
-                songs = arrayListOf(
-                    Song("Next Level", "에스파 (AESPA)", 0, 60, false, "music_nextlevel")
-                )))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6,
-                songs = arrayListOf(
-                    Song("Weekend", "태연 (Tae Yeon)", 0, 60, false, "music_weekend")
-                )))
-        }
+        inputDummyAlbums()
 
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
+/*
         // 앨범 아이템 클릭 리스너 설정
         albumRVAdapter.setMyItemCLickListener(object: AlbumRVAdapter.MyItemClickListener {
             // 앨범 아이템 클릭 시 AlbunFragment로 데이터 전달
@@ -101,6 +55,7 @@ class HomeFragment : Fragment() {
                 albumRVAdapter.removeItem(position)
             }
         })
+*/
 
         // 배너 ViewPager 어댑터 설정
         val bannerAdapter = BannerVPAdapter(this)
@@ -125,6 +80,33 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun inputDummyAlbums() {
+        val songDB = SongDatabase.getInstance(requireActivity())!!
+        val songs = songDB.albumDao().getAlbums()
+
+        if (songs.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(1, "The Volunteers", "The Volunteers (더 발룬티어스)", R.drawable.img_album_exp2)
+        )
+        songDB.albumDao().insert(
+            Album(2, "OO-LI", "WOODZ", R.drawable.img_album_exp4)
+        )
+        songDB.albumDao().insert(
+            Album(3,"SUPER REAL ME", "아일릿 (ILLIT)", R.drawable.img_album_exp5)
+        )
+        songDB.albumDao().insert(
+            Album(4, "Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp)
+        )
+        songDB.albumDao().insert(
+            Album(5, "Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3)
+        )
+        songDB.albumDao().insert(
+            Album(6, "Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6)
+        )
+    }
+
+/*
     // 앨범 클릭 시 AlbumFragment로 데이터 전달하는 메소드
     private fun changeAlbumFragment(album: Album) {
         (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -137,11 +119,11 @@ class HomeFragment : Fragment() {
             })
             .commitAllowingStateLoss()
     }
-
     // 미니 플레이어를 선택한 앨범 정보로 업데이트하는 메소드
     private fun changeMiniPlayer(album: Album) {
         (context as MainActivity).updateMiniPlayer(album)
     }
+*/
 
     // 자동 슬라이드 기능
     private fun startAutoScroll() {

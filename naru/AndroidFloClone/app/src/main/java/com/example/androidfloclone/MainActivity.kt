@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainProgressSb.progress = (second * 100000 / song.playTime)
     }
 
+/*
     fun updateMiniPlayer(album: Album) {
         // 앨범의 첫 번째 노래를 선택
         val firstSong = album.songs?.first()
@@ -139,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.mainProgressSb.progress = 0  // 프로그레스바 초기화
     }
+*/
 
     override fun onStart() {
         super.onStart()
@@ -169,22 +171,22 @@ class MainActivity : AppCompatActivity() {
         if (songs.isNotEmpty()) return
 
         songDB.songDao().insert(
-            Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad", R.drawable.img_album_exp2, false)
+            Song("S.A.D", "The Volunteers", 0, 60, false, "music_sad", R.drawable.img_album_exp2, false, 1)
         )
         songDB.songDao().insert(
-            Song("Journey", "WOODZ", 0, 60, false, "music_journey", R.drawable.img_album_exp4, false)
+            Song("Journey", "WOODZ", 0, 60, false, "music_journey", R.drawable.img_album_exp4, false, 2)
         )
         songDB.songDao().insert(
-            Song("My World", "아일릿 (ILLIT)", 0, 60, false, "music_myworld", R.drawable.img_album_exp5, false)
+            Song("My World", "아일릿 (ILLIT)", 0, 60, false, "music_myworld", R.drawable.img_album_exp5, false, 3)
         )
         songDB.songDao().insert(
-            Song("Butter", "방탄소년단 (BTS)", 0, 60, false, "music_butter", R.drawable.img_album_exp, false)
+            Song("Butter", "방탄소년단 (BTS)", 0, 60, false, "music_butter", R.drawable.img_album_exp, false, 4)
         )
         songDB.songDao().insert(
-            Song("Next Level", "에스파 (AESPA)", 0, 60, false, "music_nextlevel", R.drawable.img_album_exp3, false)
+            Song("Next Level", "에스파 (AESPA)", 0, 60, false, "music_nextlevel", R.drawable.img_album_exp3, false, 5)
         )
         songDB.songDao().insert(
-            Song("Weekend", "태연 (Tae Yeon)", 0, 60, false, "music_weekend", R.drawable.img_album_exp6, false)
+            Song("Weekend", "태연 (Tae Yeon)", 0, 60, false, "music_weekend", R.drawable.img_album_exp6, false, 6)
         )
         val songDBData = songDB.songDao().getSongs()
         Log.d("DB data", songDBData.toString())
