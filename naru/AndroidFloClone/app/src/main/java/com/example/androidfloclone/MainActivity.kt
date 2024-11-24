@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         inputDummySongs()
         initPlayList()
+        initClickListener()
 
         binding.mainPlayerCl.setOnClickListener {
             val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
@@ -92,6 +93,31 @@ class MainActivity : AppCompatActivity() {
     private fun initPlayList() {
         songDB = SongDatabase.getInstance(this)!!
         songs.addAll(songDB.songDao().getSongs())
+    }
+
+    private fun initClickListener() {
+        binding.mainPreviousBtn.setOnClickListener {
+            moveSong(-1)
+        }
+        binding.mainNextBtn.setOnClickListener {
+            moveSong(+1)
+        }
+    }
+
+    private fun moveSong(direct: Int) {
+        if (nowPos + direct < 0) {
+            Toast.makeText(this, "first song", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (nowPos + direct >= songs.size) {
+            Toast.makeText(this, "Last song", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        nowPos += direct
+
+        setMiniPlayer(songs[nowPos])
+        binding.mainProgressSb.progress = 0
     }
 
     private fun setMiniPlayer(song: Song) {
