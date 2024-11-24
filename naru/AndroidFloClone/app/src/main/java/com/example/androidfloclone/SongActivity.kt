@@ -37,7 +37,6 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun initClickListener() {
-        // 버튼 클릭 시 제목 전달하고 액티비티 종료
         binding.songDownIb.setOnClickListener {
             finish()
         }
@@ -238,10 +237,13 @@ class SongActivity : AppCompatActivity() {
     // 사용자가 포커스를 잃었을 때 음악이 중지
     override fun onPause() {
         super.onPause()
+        startStopService()
         setPlayerStatus(false)
+
         songs[nowPos].isPlaying = false
 
         songs[nowPos].second = ((binding.songProgressSb.progress * songs[nowPos].playTime)/100)/1000
+
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("songId", songs[nowPos].id)
