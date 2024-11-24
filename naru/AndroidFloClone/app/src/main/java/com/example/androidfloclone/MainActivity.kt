@@ -146,18 +146,20 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val songId = sharedPreferences.getInt("songId", 0)
 
-        val songDB = SongDatabase.getInstance(this)!!
+        // songId에 해당하는 노래가 있으면 그 노래를 리스트에서 찾아서 해당 위치를 설정
+        val songPosition = getPlayingSongPosition(songId)
 
-        songs[nowPos] = if (songId == 0){
-            songDB.songDao().getSong(1)
-        } else{
-            songDB.songDao().getSong(songId)
+        if (songPosition >= 0 && songPosition < songs.size) {
+            nowPos = songPosition
+        } else {
+            // songId가 없거나 잘못된 경우 기본 첫 번째 노래 설정
+            nowPos = 0
         }
 
-        Log.d("song ID", songs[nowPos].id.toString())
-
-        nowPos = getPlayingSongPosition(songId)
+        // 선택된 노래로 미니 플레이어 업데이트
         setMiniPlayer(songs[nowPos])
+
+        Log.d("song ID", songs[nowPos].id.toString())
     }
 
     private fun inputDummySongs() {
