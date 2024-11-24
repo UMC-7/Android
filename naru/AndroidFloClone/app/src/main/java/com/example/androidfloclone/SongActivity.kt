@@ -104,9 +104,11 @@ class SongActivity : AppCompatActivity() {
 
         if (!isLike) {
             binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+            CustomToast.showToast(this, "좋아요 한 곡에 담겼습니다.")
         }
         else {
             binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+            CustomToast.showToast(this, "좋아요 한 곡이 취소되었습니다.")
         }
     }
 
