@@ -31,6 +31,11 @@ class LockerFragment : Fragment() {
             tab.text = information[position]
         }.attach()
 
+        val bottomSheetFragment = BottomSheetFragment()
+        binding.lockerSelectAllTv.setOnClickListener {
+            bottomSheetFragment.show(requireFragmentManager(), "BottomSheetDialog")
+        }
+
         return binding.root
     }
 }
