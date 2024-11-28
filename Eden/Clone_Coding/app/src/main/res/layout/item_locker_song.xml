@@ -48,15 +48,49 @@
         app:layout_constraintBottom_toBottomOf="@id/item_song_img_cardView"
         app:layout_constraintStart_toEndOf="@id/item_song_img_cardView"/>
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/item_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guide_switch_and_play"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_switch_and_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8"/>
+
     <ImageView
         android:id="@+id/item_song_play_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/btn_player_play"
         android:layout_marginRight="5dp"
-        app:layout_constraintEnd_toStartOf="@id/item_song_more_iv"
+        app:layout_constraintEnd_toStartOf="@id/guide_play_and_more"
         app:layout_constraintTop_toTopOf="@id/item_song_more_iv"
         app:layout_constraintBottom_toBottomOf="@id/item_song_more_iv"/>
+
+    <ImageView
+        android:id="@+id/item_song_pause_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/btn_miniplay_pause"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toStartOf="@id/guide_play_and_more"
+        app:layout_constraintTop_toTopOf="@id/item_song_more_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_song_more_iv"
+        android:visibility="gone"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_play_and_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.91"/>
 
     <ImageView
         android:id="@+id/item_song_more_iv"

@@ -26,6 +26,18 @@ class SavedSongFragment : Fragment() {
             add(Album("Champagne Supernova", "피아노헌준", R.drawable.img_phj_piano))
             add(Album("정류장에서", "마스크헌준", R.drawable.img_phj_bus))
             add(Album("나도 졸업하고 싶다", "20박헌준", R.drawable.img_phj_good))
+            add(Album("처음2", "두둥탁", R.drawable.img_phj_poster))
+            add(Album("로고2", "두둥탁", R.drawable.img_phj_logo))
+            add(Album("엄2", "엄헌준", R.drawable.img_phj_um))
+            add(Album("Champagne Supernova2", "피아노헌준", R.drawable.img_phj_piano))
+            add(Album("정류장에서2", "마스크헌준", R.drawable.img_phj_bus))
+            add(Album("나도 졸업하고 싶다2", "20박헌준", R.drawable.img_phj_good))
+            add(Album("처음3", "두둥탁", R.drawable.img_phj_poster))
+            add(Album("로고3", "두둥탁", R.drawable.img_phj_logo))
+            add(Album("엄3", "엄헌준", R.drawable.img_phj_um))
+            add(Album("Champagne Supernova3", "피아노헌준", R.drawable.img_phj_piano))
+            add(Album("정류장에서3", "마스크헌준", R.drawable.img_phj_bus))
+            add(Album("나도 졸업하고 싶다3", "20박헌준", R.drawable.img_phj_good))
         }
 
         var albumLockerRVAdapter = AlbumLockerRVAdapter(lockerAlbumDatas)

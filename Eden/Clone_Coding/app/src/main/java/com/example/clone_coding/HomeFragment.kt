@@ -59,12 +59,12 @@ class HomeFragment : Fragment() {
         //더미 데이터
         albumDatas.apply {
             add(Album("라일락", "아이유(IU)", R.drawable.img_album_exp2,
-                ArrayList<Song>().apply{add(Song("라일락", "아이유", 0, 215, false, "music_lilac"))}))
+                ArrayList<Song>().apply{add(Song("라일락", "아이유", 0, 215, false, "music_lilac"))}, false))
             add(Album("엄", "헌준타워", R.drawable.img_album_phj,
-                ArrayList<Song>().apply{add(Song("한 페이지가 될 수 있게", "두둥탁", 0, 206, false, "music_page"))}))
-            add(Album("Next Level", "에스파", R.drawable.img_album_exp3))
-            add(Album("Boy with Luv", "방탄소년단(BTS)", R.drawable.img_album_exp4))
-            add(Album("Weekend", "태연", R.drawable.img_album_exp6))
+                ArrayList<Song>().apply{add(Song("한 페이지가 될 수 있게", "두둥탁", 0, 206, false, "music_page"))}, false))
+            add(Album("Next Level", "에스파", R.drawable.img_album_exp3,null,false))
+            add(Album("Boy with Luv", "방탄소년단(BTS)", R.drawable.img_album_exp4,null,false))
+            add(Album("Weekend", "태연", R.drawable.img_album_exp6,null,false))
         }
 
         var albumRVAdapter = AlbumRVAdapter(albumDatas)
