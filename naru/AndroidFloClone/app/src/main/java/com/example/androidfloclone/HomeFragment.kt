@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
     private var job: Job? = null // 자동 슬라이드 Job을 nullable로 변경
     private var albumDatas = ArrayList<Album>()  // 앨범 데이터를 저장할 ArrayList
     private lateinit var songDB: SongDatabase
+    private val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,28 +35,42 @@ class HomeFragment : Fragment() {
         songDB = SongDatabase.getInstance(requireContext())!!
         albumDatas.addAll(songDB.albumDao().getAlbums())
 
-        inputDummyAlbums()
-
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-/*
+
         // 앨범 아이템 클릭 리스너 설정
         albumRVAdapter.setMyItemCLickListener(object: AlbumRVAdapter.MyItemClickListener {
             // 앨범 아이템 클릭 시 AlbunFragment로 데이터 전달
             override fun onItemClick(album: Album) {
                 changeAlbumFragment(album)
             }
-            // 앨범 재생 아이콘 클릭 시 미니 플레이어 업데이트
+            // 앨범 재생 아이콘 클릭 시, Ids를 액티비티로 전달
             override fun onPlayImgClick(album: Album) {
-                changeMiniPlayer(album)
+                val mainActivity = requireActivity() as MainActivity
+                val albumSongs = ArrayList<Song>()
+                val songIds = ArrayList<Int>()
+
+                albumSongs.addAll(songDB.songDao().getAlbumSongs(album.id))
+
+                for (i in 0 until albumSongs.size) {
+                    songIds.add(albumSongs[i].id)
+                }
+
+                val songIdsJson = gson.toJson(songIds)
+                mainActivity.albumSongsReceived(songIdsJson)
+
+                /*// SharedPreferences에 저장하여 SongActivity로 전달
+                val sharedPreferences = requireActivity().getSharedPreferences("SongPreferences", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("songIds", songIdsJson)
+                editor.apply()*/
             }
             // 앨범 아이템 삭제
             override fun onRemoveAlbum(position: Int) {
                 albumRVAdapter.removeItem(position)
             }
         })
-*/
 
         // 배너 ViewPager 어댑터 설정
         val bannerAdapter = BannerVPAdapter(this)
@@ -80,33 +95,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun inputDummyAlbums() {
-        val songDB = SongDatabase.getInstance(requireActivity())!!
-        val songs = songDB.albumDao().getAlbums()
-
-        if (songs.isNotEmpty()) return
-
-        songDB.albumDao().insert(
-            Album(1, "The Volunteers", "The Volunteers (더 발룬티어스)", R.drawable.img_album_exp2)
-        )
-        songDB.albumDao().insert(
-            Album(2, "OO-LI", "WOODZ", R.drawable.img_album_exp4)
-        )
-        songDB.albumDao().insert(
-            Album(3,"SUPER REAL ME", "아일릿 (ILLIT)", R.drawable.img_album_exp5)
-        )
-        songDB.albumDao().insert(
-            Album(4, "Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp)
-        )
-        songDB.albumDao().insert(
-            Album(5, "Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3)
-        )
-        songDB.albumDao().insert(
-            Album(6, "Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6)
-        )
-    }
-
-/*
     // 앨범 클릭 시 AlbumFragment로 데이터 전달하는 메소드
     private fun changeAlbumFragment(album: Album) {
         (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -119,11 +107,6 @@ class HomeFragment : Fragment() {
             })
             .commitAllowingStateLoss()
     }
-    // 미니 플레이어를 선택한 앨범 정보로 업데이트하는 메소드
-    private fun changeMiniPlayer(album: Album) {
-        (context as MainActivity).updateMiniPlayer(album)
-    }
-*/
 
     // 자동 슬라이드 기능
     private fun startAutoScroll() {

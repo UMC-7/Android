@@ -10,8 +10,8 @@ import com.example.androidfloclone.databinding.ItemAlbumBinding
 class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>(){
 
     interface MyItemClickListener {
-        // fun onItemClick(album: Album)
-        // fun onPlayImgClick(album: Album)
+        fun onItemClick(album: Album)
+        fun onPlayImgClick(album: Album)
         fun onRemoveAlbum(position: Int)
     }
 
@@ -39,17 +39,17 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
     override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
         holder.bind(albumList[position])
 
-        /*holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
             Log.d("AlbumRVAdapter", "PlayButton: ${albumList[position].title}")
             myItemClickListener.onItemClick(albumList[position])
         }
         holder.binding.itemAlbumPlayImgIv.setOnClickListener{
             Log.d("AlbumRVAdapter", "AlbumImg: ${albumList[position].title}")
             myItemClickListener.onPlayImgClick(albumList[position])
-        }*/
-        /*holder.binding.itemAlbumTitleTv.setOnClickListener {
+        }
+        holder.binding.itemAlbumTitleTv.setOnClickListener {
             myItemClickListener.onRemoveAlbum(position)
-        }*/
+        }
 
 
     }

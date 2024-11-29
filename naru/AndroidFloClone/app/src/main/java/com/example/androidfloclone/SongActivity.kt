@@ -29,6 +29,30 @@ class SongActivity : AppCompatActivity() {
         initPlayList()
         initSong()
         initClickListener()
+
+        albumSongsReceived()
+    }
+
+    private fun albumSongsReceived() {
+        val sharedPreferences = getSharedPreferences("SongPreferences", Context.MODE_PRIVATE)
+        val songIdsJson = sharedPreferences.getString("songIds", null)
+
+        songIdsJson?.let {
+            val gson = Gson()
+
+            // songIdsJson을 리스트로 변환
+            val songIdArray = gson.fromJson(it, Array<Int>::class.java)
+            val songIdList: ArrayList<Int> = ArrayList(songIdArray.toList())
+
+            songDB = SongDatabase.getInstance(this)!!
+
+            // songIdList에 있는 각 곡을 songs 리스트에 추가
+            for (id in songIdList) {
+                songs.add(songDB.songDao().getSong(id))
+            }
+
+            Log.d("AlbumSongs", "Loaded songs: $songs")
+        }
     }
 
     private fun initPlayList() {
