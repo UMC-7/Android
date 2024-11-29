@@ -2,9 +2,11 @@ package com.example.androidfloclone
 
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.androidfloclone.databinding.ActivityMainBinding
 import com.google.gson.Gson
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var songDB: SongDatabase
     var nowPos = 0
 
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,19 +31,27 @@ class MainActivity : AppCompatActivity() {
         initPlayList()
         initClickListener()
 
-        binding.mainPlayerCl.setOnClickListener {
-            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
-            editor.putInt("songId", songs[nowPos].id)
-            editor.apply()
-
-            val intent = Intent(this, SongActivity::class.java)
-            startActivity(intent)
-        }
-
         initBottomNavigation()
 
         Log.d("Song", songs[nowPos].title + songs[nowPos].singer)
 
+    }
+
+    fun setPlayerStatus(isPlaying : Boolean) {
+        songs[nowPos].isPlaying = isPlaying
+
+        if (isPlaying) {
+            binding.mainPauseBtn.visibility = View.VISIBLE
+            binding.mainMiniplayerBtn.visibility = View.GONE
+            mediaPlayer?.start()
+        }
+        else {
+            binding.mainPauseBtn.visibility = View.GONE
+            binding.mainMiniplayerBtn.visibility = View.VISIBLE
+            if (mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+            }
+        }
     }
 
     private fun initBottomNavigation(){
@@ -96,11 +108,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initClickListener() {
+        binding.mainPlayerCl.setOnClickListener {
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", songs[nowPos].id)
+            editor.apply()
+
+            val intent = Intent(this, SongActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.mainPreviousBtn.setOnClickListener {
             moveSong(-1)
         }
         binding.mainNextBtn.setOnClickListener {
             moveSong(+1)
+        }
+
+        binding.mainPauseBtn.setOnClickListener {
+            setPlayerStatus(false)
+        }
+        binding.mainMiniplayerBtn.setOnClickListener {
+            setPlayerStatus(true)
         }
     }
 
@@ -116,8 +144,11 @@ class MainActivity : AppCompatActivity() {
 
         nowPos += direct
 
-        setMiniPlayer(songs[nowPos])
         binding.mainProgressSb.progress = 0
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        setMiniPlayer(songs[nowPos])
     }
 
     private fun setMiniPlayer(song: Song) {
@@ -126,6 +157,11 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val second = sharedPreferences.getInt("second", 0)
         binding.mainProgressSb.progress = (second * 100000 / song.playTime)
+
+        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+        mediaPlayer = MediaPlayer.create(this, music)
+
+        setPlayerStatus(song.isPlaying)
     }
 
     fun albumSongsReceived(jsonData: String) {
