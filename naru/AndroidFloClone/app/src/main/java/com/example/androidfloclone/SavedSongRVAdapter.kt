@@ -60,9 +60,15 @@ class SavedSongRVAdapter(): RecyclerView.Adapter<SavedSongRVAdapter.ViewHolder>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun removeSongs(position: Int){
+    fun removeSongs(position: Int){
         songs.removeAt(position)
         notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeAllSongs() {
+        songs.clear() // 모든 노래 제거
+        notifyDataSetChanged() // UI 업데이트
     }
 
     override fun getItemCount(): Int = songs.size

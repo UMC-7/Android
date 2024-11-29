@@ -26,6 +26,9 @@ interface SongDao {
     @Query("UPDATE songtable SET isLike = :isLike WHERE id = :id")
     fun updateIsLikeMyId(isLike: Boolean, id: Int)
 
+    @Query("UPDATE SongTable SET isLike = 0 WHERE isLike = 1")
+    fun unlikeAllSongs()
+
     @Query("SELECT * FROM SongTable WHERE isLike = :isLike")
     fun getLikedSong(isLike: Boolean): List<Song>
 
