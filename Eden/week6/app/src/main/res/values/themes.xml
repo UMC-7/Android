@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Week6" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="popupMenuStyle">@style/CustomPopupMenu</item>
+        <item name="colorPrimary">#3064c5</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+    </style>
+
+    <style name="CustomPopupMenu" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@color/white</item>
+    </style>
+
+    <style name="Theme.Week6" parent="Base.Theme.Week6" />
+
+</resources>
