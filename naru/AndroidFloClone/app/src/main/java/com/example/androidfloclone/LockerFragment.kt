@@ -15,13 +15,13 @@ class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
 
-    private var information = arrayListOf("저장한 곡", "음악파일")
+    private var information = arrayListOf("저장한곡", "음악파일", "저장앨범")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLockerBinding.inflate(inflater, container, false)
 
         // ViewPager 에 어탭터 연결
