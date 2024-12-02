@@ -48,6 +48,8 @@ class LoginActivity : AppCompatActivity() {
             Log.d("Login_Act/Get_User", "userId: ${user.id}, $user")
             saveJwt(user.id)
             startMainActivity()
+
+            return // 로그인 성공 시 함수 종료
         }
         Toast.makeText(this, "회원 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
     }
