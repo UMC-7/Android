@@ -24,7 +24,7 @@ interface AlbumDao {
     fun getAlbum(id: Int): Album
 
     @Insert
-    fun LikeAlbum(like: Like)
+    fun likeAlbum(like: Like)
 
     @Query("SELECT id FROM LikeTable WHERE userId = :userId AND albumId = :albumId")
     fun isLikedAlbum(userId: Int, albumId: Int) : Int?
