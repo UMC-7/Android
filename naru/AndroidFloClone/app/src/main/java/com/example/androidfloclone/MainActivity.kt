@@ -239,9 +239,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun inputDummyAlbums() {
         val songDB = SongDatabase.getInstance(this)!!
-        val songs = songDB.albumDao().getAlbums()
+        val albums = songDB.albumDao().getAlbums()
 
-        if (songs.isNotEmpty()) return
+        if (albums.isNotEmpty()) return
 
         songDB.albumDao().insert(
             Album(1, "The Volunteers", "The Volunteers (더 발룬티어스)", R.drawable.img_album_exp2)
