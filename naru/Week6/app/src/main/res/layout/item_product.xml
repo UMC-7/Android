@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp">
+
+    <!-- Product Image -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_product_img_cardView"
+        android:layout_width="140dp"
+        android:layout_height="170dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        android:backgroundTint="#f4f4f4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/item_product_img_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/product_1" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Product Brand -->
+    <TextView
+        android:id="@+id/item_brand_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="노스페이스"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_product_img_cardView" />
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/item_product_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="NJ3NQ53A 남성 눕시 온볼 자켓_BLACK"
+        android:textSize="13sp"
+        android:layout_marginHorizontal="7dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_brand_tv" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/item_product_price_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="224,100원"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="7dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_product_tv" />
+
+    <!-- Product Description -->
+    <TextView
+        android:id="@+id/item_describe_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="7dp"
+        android:layout_marginTop="5dp"
+        android:text="1.1천명이 보는 중"
+        android:textColor="#747474"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_product_price_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

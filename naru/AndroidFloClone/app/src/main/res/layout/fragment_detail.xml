@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/detail_album_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="앨범명"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/detail_album_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Volunteers"
+        android:textColor="@color/gray_color"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/detail_artist_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/detail_album_tv" />
+
+    <TextView
+        android:id="@+id/detail_artist_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="아티스트"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_album_tv"/>
+
+    <TextView
+        android:id="@+id/detail_artist_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Volunteers (더 발룬티어스)"
+        android:textSize="15sp"
+        android:textColor="@color/gray_color"
+        android:layout_marginStart="18dp"
+        app:layout_constraintStart_toEndOf="@+id/detail_artist_tv"
+        app:layout_constraintTop_toTopOf="@+id/detail_artist_tv" />
+
+    <TextView
+        android:id="@+id/detail_distributors_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="유통사"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_artist_tv"/>
+
+    <TextView
+        android:id="@+id/detail_distributors_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="마운드 미디어"
+        android:textColor="@color/gray_color"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/detail_artist_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/detail_distributors_tv" />
+
+    <TextView
+        android:id="@+id/detail_entertainment_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="기획사"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_distributors_tv"/>
+
+    <TextView
+        android:id="@+id/detail_entertainment_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="블루바이닐"
+        android:textColor="@color/gray_color"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/detail_distributors_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/detail_entertainment_tv" />
+
+    <TextView
+        android:id="@+id/detail_introduction_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="앨범 소개"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_entertainment_tv"/>
+
+    <TextView
+        android:id="@+id/detail_introduction_sentence_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="&quot;As long as we walk our path - honey, if don't matter.&quot;"
+        android:textSize="15sp"
+        android:textColor="@color/gray_color"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_introduction_tv"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
