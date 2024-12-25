@@ -21,7 +21,7 @@ class AuthService {
                 Log.d("SIGNUP/SUCCESS", response.toString())
                 val resp: AuthResponse = response.body()!!
                 when(resp.code) {
-                    200 -> signUpView.onSignUpSuccess()
+                    "200" -> signUpView.onSignUpSuccess()
                     else -> signUpView.onSignUpFailure()
                 }
             }
