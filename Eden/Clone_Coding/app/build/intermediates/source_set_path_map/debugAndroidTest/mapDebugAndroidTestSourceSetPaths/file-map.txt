@@ -1,0 +1,5 @@
+com.example.clone_coding.test.app-androidTest-0 C:\UMC_7th\Eden\Clone_Coding\app\build\generated\res\resValues\androidTest\debug
+com.example.clone_coding.test.app-mergeDebugAndroidTestResources-1 C:\UMC_7th\Eden\Clone_Coding\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.clone_coding.test.app-mergeDebugAndroidTestResources-2 C:\UMC_7th\Eden\Clone_Coding\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.clone_coding.test.app-debugAndroidTest-3 C:\UMC_7th\Eden\Clone_Coding\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+com.example.clone_coding.test.app-core-1.6.1-4 C:\Users\조영찬\.gradle\caches\transforms-4\c3d104d3512fb1fec0fe0edad8e591cc\transformed\core-1.6.1\res
