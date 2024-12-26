@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_music_file.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_music_file.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_locker.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_locker.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_look.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_look.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_home_panel2.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_home_panel2.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\activity_song.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\activity_song.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_saved_song.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_saved_song.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_search.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_search.xml"
+    },
+    {
+        "merged": "com.example.clone_coding.app-mergeDebugResources-3:/layout/activity_signup.xml",
+        "source": "com.example.clone_coding.app-main-6:/layout/activity_signup.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_detail.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_home_panel3.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_home_panel3.xml"
+    },
+    {
+        "merged": "com.example.clone_coding.app-mergeDebugResources-3:/layout/activity_login.xml",
+        "source": "com.example.clone_coding.app-main-6:/layout/activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_banner.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_banner.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_home.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_video.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_video.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\item_album.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\item_album.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\item_locker_album.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\item_locker_album.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\item_locker_song.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\item_locker_song.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_home_panel1.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_home_panel1.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_song.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_song.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_saved_album.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_saved_album.xml"
+    },
+    {
+        "merged": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-mergeDebugResources-3:\\layout\\fragment_album.xml",
+        "source": "C:\\Users\\조영찬\\.gradle\\daemon\\8.7\\com.example.clone_coding.app-main-6:\\layout\\fragment_album.xml"
+    }
+]
