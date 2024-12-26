@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 카테고리 아이템 -->
+    <item
+        android:id="@+id/categoryFragment"
+        android:icon="@drawable/ic_category"
+        android:title="카테고리" />
+
+    <!-- 스냅 아이템 -->
+    <item
+        android:id="@+id/snapFragment"
+        android:icon="@drawable/ic_snap"
+        android:title="스냅" />
+
+    <!-- 홈 아이템 -->
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="무신사 홈" />
+
+    <!-- 좋아요 아이템 -->
+    <item
+        android:id="@+id/likeFragment"
+        android:icon="@drawable/ic_like"
+        android:title="좋아요" />
+
+    <!-- 마이 아이템 -->
+    <item
+        android:id="@+id/myFragment"
+        android:icon="@drawable/ic_my"
+        android:title="마이" />
+</menu>
