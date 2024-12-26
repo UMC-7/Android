@@ -1,3 +1,15 @@
 package com.example.androidfloclone
 
-data class AuthResponse (val isSuccess:Boolean, val code:String, val message:String)
+import com.google.gson.annotations.SerializedName
+
+data class AuthResponse (
+    @SerializedName(value = "isSuccess") val isSuccess:Boolean,
+    @SerializedName(value = "code") val code:String,
+    @SerializedName(value = "message") val message:String,
+    @SerializedName(value = "result") val result: Result?
+)
+
+data class Result(
+    @SerializedName(value = "userIdx") var memberId : Int,
+    @SerializedName(value = "jwt") var accessToken : String
+)

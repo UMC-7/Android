@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("Song", songs[nowPos].title + songs[nowPos].singer)
 
+        Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
+
     }
 
     fun setPlayerStatus(isPlaying : Boolean) {
@@ -214,6 +216,12 @@ class MainActivity : AppCompatActivity() {
         binding.mainProgressSb.progress = 0  // 프로그레스바 초기화
     }
 */
+
+    private fun getJwt(): String? {
+        val spf = this.getSharedPreferences("auth2", AppCompatActivity.MODE_PRIVATE)
+
+        return spf!!.getString("jwt", "")
+    }
 
     override fun onStart() {
         super.onStart()
