@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!-- 배경색 설정 -->
+    <solid android:color="#BCA9F5" />
+
+    <!-- 둥근 모서리 설정 -->
+    <corners android:radius="24dp" />
+
+    <!-- 버튼 크기 설정  -->
+    <size android:width="200dp" android:height="48dp" />
+</shape>
