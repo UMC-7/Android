@@ -28,6 +28,7 @@ class NextActivity : AppCompatActivity() {
 
         // 바텀 네비게이션 뷰 작동
         initBottomNavigation(cur)
+
     }
 
 
