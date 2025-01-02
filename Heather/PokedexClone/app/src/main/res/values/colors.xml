@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="grass_background">#DEEDD9</color>
+    <color name="fire_background">#FFE6E6</color>
+    <color name="water_background">#D9F1FF</color>
+    <color name="bug_background">#F2ECE3</color>
+
+    <color name="grass_type">#82C274</color>
+    <color name="poison_type">#B884DD</color>
+    <color name="fire_type">#EF7374</color>
+    <color name="flying_type">#ADD2F5</color>
+    <color name="water_type">#74ACF5</color>
+    <color name="bug_type">#B8C26A</color>
+    <color name="normal_type">#C1C2C1</color>
+</resources>

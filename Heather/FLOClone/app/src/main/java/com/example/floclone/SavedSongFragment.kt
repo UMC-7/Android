@@ -1,0 +1,56 @@
+package com.example.floclone
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.floclone.databinding.FragmentSavedSongBinding
+
+
+class SavedSongFragment : Fragment() {
+
+//    private var albumDatas = ArrayList<Album>()
+    lateinit var binding : FragmentSavedSongBinding
+    private var songDatas = ArrayList<Song>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSavedSongBinding.inflate(inflater, container, false)
+
+        // 더미데이터 생성
+        songDatas.apply {
+            add(Song("Whiplash", "aespa", 0, 180, false, "whiplash", coverImg = R.drawable.img_album_exp7, isSwitchOn = false))
+            add(Song("APT.", "로제 (ROSÉ) & Bruno Mars", 0, 180, false, "apt", coverImg = R.drawable.img_album_exp8, isSwitchOn = false))
+            add(Song("HAPPY", "DAY6 (데이식스)", 0, 180, false, "happy", coverImg = R.drawable.img_album_exp9, isSwitchOn = false))
+            add(Song("POWER", "G-DRAGON", 0, 180, false, "power", coverImg = R.drawable.img_album_exp10, isSwitchOn = false))
+            add(Song("UP (KARINA Solo)", "aespa", 0, 180, false, "up", coverImg = R.drawable.img_album_exp11, isSwitchOn = false))
+            add(Song("Drowning", "WOODZ", 0, 180, false, "drowning", coverImg = R.drawable.img_album_exp12, isSwitchOn = false))
+            add(Song("내 이름 맑음", "QWER", 0, 180, false, "qwer", coverImg = R.drawable.img_album_exp13, isSwitchOn = false))
+            add(Song("Welcome to the show", "DAY6 (데이식스)", 0, 180, false, "welcomeToTheShow", coverImg = R.drawable.img_album_exp9, isSwitchOn = false))
+        }
+
+        val songRVAdapter = SongRVAdapter(songDatas)
+        binding.savedSongRv.apply {
+            adapter = songRVAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        // 클릭 리스너 설정
+        songRVAdapter.setMyItemClickListener(object: SongRVAdapter.MyItemClickListener {
+            override fun onRemoveSong(position: Int) {
+                songRVAdapter.removeSong(position)
+            }
+        })
+
+        return binding.root
+    }
+
+}
